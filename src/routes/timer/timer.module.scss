@@ -1,0 +1,29 @@
+@import '../../styles/globals/index.scss';
+
+.timerDisplay {
+  font-size: $font-size-4xl;
+  font-weight: $font-weight-bold;
+  color: $primary-color;
+  font-family: monospace;
+  margin-bottom: $spacing-xl;
+  
+  @include md {
+    font-size: calc($font-size-4xl * 1.5);
+  }
+}
+
+.buttonGroup {
+  @include flex-center;
+  gap: $spacing-md;
+  
+  ion-button {
+    min-width: 100px;
+  }
+}
+
+.timerCard {
+  @include card($spacing-lg, $radius-lg);
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}

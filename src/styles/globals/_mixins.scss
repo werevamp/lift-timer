@@ -1,0 +1,83 @@
+// Responsive Breakpoint Mixins
+@mixin xs {
+  @media (min-width: #{$breakpoint-xs}) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media (min-width: #{$breakpoint-sm}) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: #{$breakpoint-md}) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: #{$breakpoint-lg}) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media (min-width: #{$breakpoint-xl}) {
+    @content;
+  }
+}
+
+// Flexbox Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Button Mixins
+@mixin button-variant($bg-color, $text-color: white) {
+  background-color: $bg-color;
+  color: $text-color;
+  
+  &:hover {
+    background-color: darken($bg-color, 10%);
+  }
+  
+  &:active {
+    background-color: darken($bg-color, 15%);
+  }
+  
+  &:disabled {
+    background-color: lighten($bg-color, 20%);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+// Card Mixin
+@mixin card($padding: $spacing-md, $radius: $radius-md) {
+  background-color: var(--ion-card-background, #ffffff);
+  border-radius: $radius;
+  padding: $padding;
+  box-shadow: $shadow-md;
+}
+
+// Text Truncate
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Transition Mixin
+@mixin transition($properties: all, $duration: 0.3s, $easing: ease) {
+  transition: $properties $duration $easing;
+}
