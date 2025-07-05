@@ -87,11 +87,16 @@ If the simulator doesn't appear:
 2. In Simulator: Device → iOS Simulators → Choose a device
 3. Run the app again from Xcode
 
-## Project Structure
+## Documentation
 
-This project follows an adapted version of the [Bulletproof React](https://github.com/alan2207/bulletproof-react) architecture. For detailed information about the folder structure and architectural decisions, see our [Project Structure Guide](./docs/project-structure.md).
+This project follows an adapted version of the [Bulletproof React](https://github.com/alan2207/bulletproof-react) architecture. 
 
-Quick overview:
+### 📚 Available Documentation
+
+- **[Project Structure Guide](./docs/project-structure.md)** - Detailed information about the folder structure, architectural decisions, and best practices for organizing code in this project
+
+### 📁 Quick Project Overview
+
 - `/src` - React source code (organized by features)
 - `/ios` - iOS native project
 - `/android` - Android native project
