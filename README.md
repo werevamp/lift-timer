@@ -2,6 +2,8 @@
 
 A workout timing companion built with Ionic React and Capacitor.
 
+Test a commit!
+
 ## Prerequisites
 
 Before running the iOS app, make sure you have:
