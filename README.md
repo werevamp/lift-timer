@@ -96,6 +96,7 @@ This project follows an adapted version of the [Bulletproof React](https://githu
 - **[Project Structure Guide](./docs/project-structure.md)** - Detailed information about the folder structure, architectural decisions, and best practices for organizing code in this project
 - **[Import Conventions Guide](./docs/import-conventions.md)** - Guidelines for using absolute and relative imports in TypeScript and SCSS files
 - **[Theming System Guide](./docs/theming.md)** - Complete guide to the theming system, including creating custom themes and using CSS variables
+- **[CSS Variables Reference](./docs/css-variables.md)** - Comprehensive guide to all available CSS variables and best practices for using them
 
 ### 📁 Quick Project Overview
 
@@ -109,10 +110,14 @@ This project follows an adapted version of the [Bulletproof React](https://githu
 
 This project uses SCSS with a modern approach:
 
+- **CSS Variables First**: Always use CSS variables for dynamic values
+  - ✅ Correct: `color: var(--color-primary);`
+  - ❌ Avoid: `color: $primary-color;`
 - **Absolute Imports**: Import global styles using absolute paths (e.g., `@use '@styles/globals' as *`)
 - **REM Units**: Use the `rem()` function for accessible, scalable units
 - **CSS Modules**: Component-specific styles use `.module.scss` files
 - **Global Styles**: Variables, mixins, and utilities in `/src/styles/globals/`
+- **Runtime Theming**: CSS variables enable dynamic theme switching without recompilation
 
 Example:
 ```scss

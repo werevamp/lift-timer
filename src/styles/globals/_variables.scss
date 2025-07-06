@@ -1,4 +1,12 @@
-// Color Variables
+// ⚠️ DEPRECATED: Use CSS variables instead!
+// These SCSS variables are kept for backward compatibility only.
+// Please use the CSS variables defined in _css-properties.scss
+//
+// Examples:
+// ❌ OLD: color: $primary-color;
+// ✅ NEW: color: var(--color-primary);
+//
+// Color Variables (DEPRECATED)
 $primary-color: #3880ff;
 $secondary-color: #3dc2ff;
 $tertiary-color: #5260ff;
@@ -9,7 +17,7 @@ $dark-color: #222428;
 $medium-color: #92949c;
 $light-color: #f4f5f8;
 
-// Spacing Variables (using rem for better scaling)
+// Spacing Variables (DEPRECATED - use var(--spacing-*) instead)
 $spacing-xs: 0.25rem;    // 4px
 $spacing-sm: 0.5rem;     // 8px
 $spacing-md: 1rem;       // 16px
@@ -17,13 +25,13 @@ $spacing-lg: 1.5rem;     // 24px
 $spacing-xl: 2rem;       // 32px
 $spacing-xxl: 3rem;      // 48px
 
-// Border Radius (keeping px as they're decorative)
+// Border Radius (DEPRECATED - use var(--radius-*) instead)
 $radius-sm: 4px;
 $radius-md: 8px;
 $radius-lg: 16px;
 $radius-full: 9999px;
 
-// Font Sizes (using rem for accessibility)
+// Font Sizes (DEPRECATED - use var(--font-size-*) instead)
 $font-size-xs: 0.75rem;   // 12px
 $font-size-sm: 0.875rem;  // 14px
 $font-size-base: 1rem;    // 16px
@@ -33,21 +41,21 @@ $font-size-2xl: 1.5rem;   // 24px
 $font-size-3xl: 1.875rem; // 30px
 $font-size-4xl: 2.25rem;  // 36px
 
-// Font Weights
+// Font Weights (DEPRECATED - use var(--font-weight-*) instead)
 $font-weight-light: 300;
 $font-weight-normal: 400;
 $font-weight-medium: 500;
 $font-weight-semibold: 600;
 $font-weight-bold: 700;
 
-// Breakpoints
+// Breakpoints (Still needed for media queries - CSS variables can't be used in @media)
 $breakpoint-xs: 0;
 $breakpoint-sm: 576px;
 $breakpoint-md: 768px;
 $breakpoint-lg: 992px;
 $breakpoint-xl: 1200px;
 
-// Z-index layers
+// Z-index layers (DEPRECATED - use var(--z-index-*) instead)
 $z-index-dropdown: 1000;
 $z-index-sticky: 1020;
 $z-index-fixed: 1030;
@@ -56,13 +64,13 @@ $z-index-modal: 1050;
 $z-index-popover: 1060;
 $z-index-tooltip: 1070;
 
-// Line Heights
+// Line Heights (DEPRECATED - use var(--line-height-*) instead)
 $line-height-tight: 1.25;
 $line-height-normal: 1.5;
 $line-height-relaxed: 1.75;
 $line-height-loose: 2;
 
-// Shadows (keeping px as they're decorative effects)
+// Shadows (DEPRECATED - use var(--shadow-*-theme) instead)
 $shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 $shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 $shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);

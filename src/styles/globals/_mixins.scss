@@ -66,11 +66,11 @@
 }
 
 // Card Mixin
-@mixin card($padding: $spacing-md, $radius: $radius-md) {
-  background-color: var(--ion-card-background, #ffffff);
+@mixin card($padding: var(--spacing-md), $radius: var(--radius-md)) {
+  background-color: var(--card-background);
   border-radius: $radius;
   padding: $padding;
-  box-shadow: $shadow-md;
+  box-shadow: var(--shadow-md-theme);
 }
 
 // Text Truncate

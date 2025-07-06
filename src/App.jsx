@@ -6,11 +6,7 @@ import { ThemeProvider } from '@/features/theme'
 const router = createRouter({ routeTree })
 
 function App() {
-  return (
-    <ThemeProvider defaultTheme="dark" storageKey="workout-timer-theme">
-      <RouterProvider router={router} />
-    </ThemeProvider>
-  )
+  return <div>hello jess</div>
 }
 
 export default App

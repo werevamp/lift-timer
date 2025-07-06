@@ -96,10 +96,15 @@ function TimerPage() {
 
 - Use SCSS modules for component styles
 - Import global styles using absolute paths: `@use '@styles/globals' as *;`
+- **Always use CSS variables instead of SCSS variables** for dynamic values:
+  - ✅ `color: var(--color-primary);`
+  - ❌ `color: $primary-color;`
+- CSS variables enable runtime theming and better maintainability
 - For specific imports: `@use '@styles/globals/variables' as vars;`
 - Follow BEM naming for class names
 - Leverage Ionic components for mobile UI
 - Use rem units via the `rem()` function for better accessibility
+- Exception: Breakpoints must remain as SCSS variables (CSS variables can't be used in @media queries)
 
 ### Import Conventions
 
