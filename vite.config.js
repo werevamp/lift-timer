@@ -9,14 +9,22 @@ export default defineConfig({
     TanStackRouterVite(),
     react()
   ],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-      '@styles': path.resolve(__dirname, './src/styles')
-    }
-  },
   server: {
     host: true, // This enables network access
     port: 5173, // Default Vite port
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+      '@styles': path.resolve(__dirname, './src/styles'),
+    },
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: ``,
+        includePaths: [path.resolve(__dirname, './src')],
+      },
+    },
   },
 })

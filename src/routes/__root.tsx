@@ -29,11 +29,14 @@ import '@ionic/react/css/text-transformation.css'
 import '@ionic/react/css/flex-utils.css'
 import '@ionic/react/css/display.css'
 
+/* Import our custom styles AFTER Ionic's styles */
+import '../index.scss'
+
 setupIonicReact()
 
 export const Route = createRootRoute({
   component: () => (
-    <IonApp>
+    <IonApp className="ion-page">
       <IonPage>
         <IonHeader>
           <IonToolbar>

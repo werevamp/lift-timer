@@ -1,0 +1,62 @@
+// Light Theme Definition
+// Default theme with bright, clean colors
+
+@use '../globals/theme-system' as *;
+
+// Light theme is the default, so these values match the root defaults
+// This file serves as documentation and can be used to reset to light theme
+@include apply-theme('light') {
+  // Color primitives
+  --color-primary-h: 217;
+  --color-primary-s: 100%;
+  --color-primary-l: 61%;
+  
+  --color-secondary-h: 192;
+  --color-secondary-s: 100%;
+  --color-secondary-l: 62%;
+  
+  --color-tertiary-h: 231;
+  --color-tertiary-s: 100%;
+  --color-tertiary-l: 66%;
+  
+  --color-success-h: 144;
+  --color-success-s: 69%;
+  --color-success-l: 53%;
+  
+  --color-warning-h: 45;
+  --color-warning-s: 100%;
+  --color-warning-l: 51%;
+  
+  --color-danger-h: 354;
+  --color-danger-s: 81%;
+  --color-danger-l: 60%;
+  
+  // Semantic colors
+  --color-background: hsl(0, 0%, 100%);
+  --color-background-secondary: hsl(0, 0%, 98%);
+  --color-surface: hsl(0, 0%, 100%);
+  --color-surface-variant: hsl(210, 16%, 96%);
+  
+  --color-text: hsl(222, 13%, 16%);
+  --color-text-secondary: hsl(216, 12%, 40%);
+  --color-text-muted: hsl(216, 12%, 60%);
+  --color-text-inverse: hsl(0, 0%, 100%);
+  
+  --color-border: hsl(216, 12%, 84%);
+  --color-border-light: hsl(216, 12%, 92%);
+  
+  // Shadow color for light theme
+  --shadow-color: 0, 0, 0;
+  
+  // Component specific
+  --card-background: var(--color-surface);
+  --input-border-color: var(--color-border);
+  
+  // Ionic overrides for light theme
+  --ion-background-color: var(--color-background);
+  --ion-text-color: var(--color-text);
+  --ion-border-color: var(--color-border);
+  
+  // Set color scheme
+  color-scheme: light;
+}

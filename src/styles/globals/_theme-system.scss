@@ -1,0 +1,186 @@
+// Theme System Base
+// This file handles theme application and switching logic
+
+@use './css-properties';
+
+// ===========================================
+// Theme application mixin
+// ===========================================
+
+@mixin apply-theme($theme-name) {
+  [data-theme='#{$theme-name}'] {
+    @content;
+  }
+}
+
+// ===========================================
+// Smooth theme transitions
+// ===========================================
+
+// Apply transitions to theme-affected properties
+* {
+  transition: 
+    background-color var(--transition-theme),
+    border-color var(--transition-theme),
+    color var(--transition-theme),
+    fill var(--transition-theme),
+    stroke var(--transition-theme);
+}
+
+// Prevent transitions on initial load
+.no-transitions * {
+  transition: none !important;
+}
+
+// ===========================================
+// Theme-aware components
+// ===========================================
+
+// Scrollbar theming
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-md);
+  
+  &:hover {
+    background: var(--color-border-light);
+  }
+}
+
+// Selection colors
+::selection {
+  background: var(--color-primary-alpha-20);
+  color: var(--color-text);
+}
+
+// ===========================================
+// Focus styles
+// ===========================================
+
+// Custom focus visible styles that adapt to theme
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+// ===========================================
+// Utility classes for theme features
+// ===========================================
+
+// Surface elevations
+.surface-1 {
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-sm-theme);
+}
+
+.surface-2 {
+  background-color: var(--color-surface-variant);
+  box-shadow: var(--shadow-md-theme);
+}
+
+.surface-3 {
+  background-color: var(--color-surface-variant);
+  box-shadow: var(--shadow-lg-theme);
+}
+
+// Text color utilities
+.text-primary {
+  color: var(--color-text);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+.text-inverse {
+  color: var(--color-text-inverse);
+}
+
+// Background utilities
+.bg-primary {
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-text-inverse);
+}
+
+.bg-surface {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+}
+
+// ===========================================
+// Container queries for component theming
+// ===========================================
+
+// Example of container query support for future use
+@supports (container-type: inline-size) {
+  .theme-container {
+    container-type: inline-size;
+  }
+  
+  // Components can respond to container queries
+  @container (min-width: 400px) {
+    .responsive-component {
+      // Responsive styles
+    }
+  }
+}
+
+// ===========================================
+// Print styles
+// ===========================================
+
+@media print {
+  :root {
+    // Force light theme for printing
+    --color-background: white;
+    --color-text: black;
+    --color-border: #ccc;
+  }
+  
+  * {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+}
+
+// ===========================================
+// High contrast mode support
+// ===========================================
+
+@media (prefers-contrast: high) {
+  :root {
+    --color-border: var(--color-text);
+    --focus-ring-width: 3px;
+  }
+}
+
+// ===========================================
+// Reduced transparency support
+// ===========================================
+
+@media (prefers-reduced-transparency) {
+  :root {
+    --color-primary-alpha-10: var(--color-primary-light);
+    --color-primary-alpha-20: var(--color-primary-light);
+    --shadow-color: transparent;
+  }
+}

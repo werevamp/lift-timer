@@ -115,8 +115,6 @@ export function Route() {
 
 // ✅ Good: Route composes feature components
 // src/routes/timer/index.tsx
-import { TimerView } from '@/features/timer'
-
 export function Route() {
   return <TimerView />
 }
@@ -136,51 +134,7 @@ utils → types → lib → hooks → components → features → routes → app
 
 ### 4. **Import Conventions**
 
-#### TypeScript/JavaScript Files
-Use absolute imports for better readability and easier refactoring:
-
-```tsx
-// ❌ Relative imports
-import { Button } from '../../../components/ui/button'
-
-// ✅ Absolute imports
-import { Button } from '@/components/ui/button'
-```
-
-#### SCSS Files
-Use path aliases for cleaner imports:
-
-```scss
-// ❌ Long relative paths
-@use '../../../styles/globals/index.scss' as *;
-
-// ✅ Path alias
-@use '@styles/globals' as *;
-```
-
-Configure in `vite.config.js`:
-```javascript
-export default defineConfig({
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-      '@styles': path.resolve(__dirname, './src/styles')
-    }
-  }
-})
-```
-
-Configure in `tsconfig.json`:
-```json
-{
-  "compilerOptions": {
-    "paths": {
-      "@/*": ["./src/*"],
-      "@styles/*": ["./src/styles/*"]
-    }
-  }
-}
-```
+See [Import Conventions Guide](./import-conventions.md) for detailed import guidelines and examples.
 
 ## 📁 Directory Guidelines
 
@@ -213,7 +167,6 @@ Routes should remain thin and focused on routing concerns:
 ```tsx
 // src/routes/timer/index.tsx
 import { createFileRoute } from '@tanstack/react-router'
-import { TimerView } from '@/features/timer'
 
 export const Route = createFileRoute('/timer/')({
   component: TimerPage,
@@ -268,16 +221,7 @@ components/ui/button/
    └── timer-button.module.scss
    ```
 
-3. **Update imports to use absolute paths:**
-   ```tsx
-   // Before
-   import styles from './timer.module.scss'
-   import { formatTime } from '../../utils/time'
-
-   // After
-   import styles from './timer-view.module.scss'
-   import { formatTime } from '@/features/timer/utils'
-   ```
+3. **Update imports according to project conventions**
 
 ## 🛠️ Implementation Example
 
@@ -300,7 +244,6 @@ src/features/workouts/
 ```tsx
 // src/routes/workouts/index.tsx
 import { createFileRoute } from '@tanstack/react-router'
-import { WorkoutsView } from '@/features/workouts'
 
 export const Route = createFileRoute('/workouts/')({
   component: WorkoutsPage,
@@ -330,10 +273,7 @@ export type { Workout, WorkoutFormData } from './types'
    - Routes: lowercase
 5. **Document complex logic** - Add JSDoc comments for complex functions
 6. **Write tests** - Colocate tests with the code they test
-7. **SCSS Import Guidelines**:
-   - Use `@styles` alias for global styles: `@use '@styles/globals' as *;`
-   - Import only what you need to avoid bloat
-   - Use namespaced imports when you need specific items: `@use '@styles/globals/variables' as vars;`
+7. **Follow established import conventions** - See [Import Conventions Guide](./import-conventions.md)
 
 ## 🚀 Benefits
 

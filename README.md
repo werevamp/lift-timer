@@ -94,6 +94,8 @@ This project follows an adapted version of the [Bulletproof React](https://githu
 ### 📚 Available Documentation
 
 - **[Project Structure Guide](./docs/project-structure.md)** - Detailed information about the folder structure, architectural decisions, and best practices for organizing code in this project
+- **[Import Conventions Guide](./docs/import-conventions.md)** - Guidelines for using absolute and relative imports in TypeScript and SCSS files
+- **[Theming System Guide](./docs/theming.md)** - Complete guide to the theming system, including creating custom themes and using CSS variables
 
 ### 📁 Quick Project Overview
 
@@ -107,7 +109,7 @@ This project follows an adapted version of the [Bulletproof React](https://githu
 
 This project uses SCSS with a modern approach:
 
-- **Path Aliases**: Import global styles using `@use '@styles/globals' as *;`
+- **Absolute Imports**: Import global styles using absolute paths (e.g., `@use '@styles/globals' as *`)
 - **REM Units**: Use the `rem()` function for accessible, scalable units
 - **CSS Modules**: Component-specific styles use `.module.scss` files
 - **Global Styles**: Variables, mixins, and utilities in `/src/styles/globals/`
@@ -122,6 +124,8 @@ Example:
   font-size: rem(18px); // Converts to 1.125rem
 }
 ```
+
+For detailed import conventions, see the [Import Conventions Guide](./docs/import-conventions.md).
 
 ## Available Scripts
 

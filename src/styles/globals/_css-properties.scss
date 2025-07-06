@@ -1,0 +1,236 @@
+// CSS Custom Properties System
+// This file defines all design tokens as CSS custom properties
+// These can be overridden by theme definitions
+
+@use 'sass:math';
+@use './functions' as *;
+
+:root {
+  // ===========================================
+  // Color Primitives - HSL components for flexibility
+  // ===========================================
+  
+  // Primary color components
+  --color-primary-h: 217;  // Hue
+  --color-primary-s: 100%; // Saturation
+  --color-primary-l: 61%;  // Lightness
+  
+  // Secondary color components
+  --color-secondary-h: 192;
+  --color-secondary-s: 100%;
+  --color-secondary-l: 62%;
+  
+  // Tertiary color components
+  --color-tertiary-h: 231;
+  --color-tertiary-s: 100%;
+  --color-tertiary-l: 66%;
+  
+  // Success color components
+  --color-success-h: 144;
+  --color-success-s: 69%;
+  --color-success-l: 53%;
+  
+  // Warning color components
+  --color-warning-h: 45;
+  --color-warning-s: 100%;
+  --color-warning-l: 51%;
+  
+  // Danger color components
+  --color-danger-h: 354;
+  --color-danger-s: 81%;
+  --color-danger-l: 60%;
+  
+  // ===========================================
+  // Semantic Color Tokens
+  // ===========================================
+  
+  // Background colors
+  --color-background: hsl(0, 0%, 100%);
+  --color-background-secondary: hsl(0, 0%, 98%);
+  --color-surface: hsl(0, 0%, 100%);
+  --color-surface-variant: hsl(210, 16%, 96%);
+  
+  // Text colors
+  --color-text: hsl(222, 13%, 16%);
+  --color-text-secondary: hsl(216, 12%, 40%);
+  --color-text-muted: hsl(216, 12%, 60%);
+  --color-text-inverse: hsl(0, 0%, 100%);
+  
+  // Border colors
+  --color-border: hsl(216, 12%, 84%);
+  --color-border-light: hsl(216, 12%, 92%);
+  --color-border-focus: hsl(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l));
+  
+  // ===========================================
+  // Computed Color Values
+  // ===========================================
+  
+  // Primary color variations
+  --color-primary: hsl(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l));
+  --color-primary-light: hsl(var(--color-primary-h), var(--color-primary-s), calc(var(--color-primary-l) + 10%));
+  --color-primary-dark: hsl(var(--color-primary-h), var(--color-primary-s), calc(var(--color-primary-l) - 10%));
+  --color-primary-alpha-10: hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.1);
+  --color-primary-alpha-20: hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.2);
+  
+  // Secondary color variations
+  --color-secondary: hsl(var(--color-secondary-h), var(--color-secondary-s), var(--color-secondary-l));
+  --color-secondary-light: hsl(var(--color-secondary-h), var(--color-secondary-s), calc(var(--color-secondary-l) + 10%));
+  --color-secondary-dark: hsl(var(--color-secondary-h), var(--color-secondary-s), calc(var(--color-secondary-l) - 10%));
+  
+  // Other semantic colors
+  --color-tertiary: hsl(var(--color-tertiary-h), var(--color-tertiary-s), var(--color-tertiary-l));
+  --color-success: hsl(var(--color-success-h), var(--color-success-s), var(--color-success-l));
+  --color-warning: hsl(var(--color-warning-h), var(--color-warning-s), var(--color-warning-l));
+  --color-danger: hsl(var(--color-danger-h), var(--color-danger-s), var(--color-danger-l));
+  
+  // ===========================================
+  // Typography
+  // ===========================================
+  
+  // Font families
+  --font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --font-family-mono: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  
+  // Font sizes
+  --font-size-xs: #{rem(12px)};
+  --font-size-sm: #{rem(14px)};
+  --font-size-base: #{rem(16px)};
+  --font-size-lg: #{rem(18px)};
+  --font-size-xl: #{rem(20px)};
+  --font-size-2xl: #{rem(24px)};
+  --font-size-3xl: #{rem(30px)};
+  --font-size-4xl: #{rem(36px)};
+  
+  // Font weights
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  // Line heights
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  --line-height-loose: 2;
+  
+  // ===========================================
+  // Spacing
+  // ===========================================
+  
+  --spacing-xs: #{rem(4px)};
+  --spacing-sm: #{rem(8px)};
+  --spacing-md: #{rem(16px)};
+  --spacing-lg: #{rem(24px)};
+  --spacing-xl: #{rem(32px)};
+  --spacing-xxl: #{rem(48px)};
+  
+  // ===========================================
+  // Border Radius
+  // ===========================================
+  
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+  
+  // ===========================================
+  // Shadows
+  // ===========================================
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  
+  // Theme-aware shadows (will be adjusted per theme)
+  --shadow-color: 0, 0, 0;
+  --shadow-sm-theme: 0 1px 2px 0 rgba(var(--shadow-color), 0.05);
+  --shadow-md-theme: 0 4px 6px -1px rgba(var(--shadow-color), 0.1), 0 2px 4px -1px rgba(var(--shadow-color), 0.06);
+  --shadow-lg-theme: 0 10px 15px -3px rgba(var(--shadow-color), 0.1), 0 4px 6px -2px rgba(var(--shadow-color), 0.05);
+  --shadow-xl-theme: 0 20px 25px -5px rgba(var(--shadow-color), 0.1), 0 10px 10px -5px rgba(var(--shadow-color), 0.04);
+  
+  // ===========================================
+  // Z-index layers
+  // ===========================================
+  
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;
+  
+  // ===========================================
+  // Animation & Transitions
+  // ===========================================
+  
+  --transition-fast: 150ms ease-in-out;
+  --transition-base: 200ms ease-in-out;
+  --transition-slow: 300ms ease-in-out;
+  
+  // Theme transition (slower for smooth color changes)
+  --transition-theme: 300ms ease-in-out;
+  
+  // ===========================================
+  // Component-specific tokens
+  // ===========================================
+  
+  // Buttons
+  --button-padding-x: var(--spacing-md);
+  --button-padding-y: var(--spacing-sm);
+  --button-radius: var(--radius-md);
+  
+  // Cards
+  --card-padding: var(--spacing-lg);
+  --card-radius: var(--radius-lg);
+  --card-background: var(--color-surface);
+  --card-shadow: var(--shadow-md-theme);
+  
+  // Forms
+  --input-padding-x: var(--spacing-md);
+  --input-padding-y: var(--spacing-sm);
+  --input-radius: var(--radius-md);
+  --input-border-color: var(--color-border);
+  --input-focus-color: var(--color-primary);
+  
+  // ===========================================
+  // State modifiers
+  // ===========================================
+  
+  --hover-opacity: 0.8;
+  --disabled-opacity: 0.5;
+  --focus-ring-width: 2px;
+  --focus-ring-color: var(--color-primary-alpha-20);
+  --focus-ring-offset: 2px;
+}
+
+// ===========================================
+// Media query custom properties
+// ===========================================
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0ms;
+    --transition-base: 0ms;
+    --transition-slow: 0ms;
+    --transition-theme: 0ms;
+  }
+}
+
+// ===========================================
+// Color scheme support
+// ===========================================
+
+:root {
+  color-scheme: light dark;
+}
+
+// Support for forced color modes
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    // Auto dark mode when no theme is set
+    // These will be overridden by explicit theme selection
+  }
+}

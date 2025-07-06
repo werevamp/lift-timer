@@ -4,14 +4,20 @@
 // 1. Functions (must come first for conversions)
 @forward './functions';
 
-// 2. Reset (sets base font size)
+// 2. CSS Custom Properties (design tokens)
+@forward './css-properties';
+
+// 3. Theme System (theme application logic)
+@forward './theme-system';
+
+// 4. Reset (sets base font size)
 @forward './reset';
 
-// 3. Variables (uses functions for rem values)
+// 5. Variables (uses functions for rem values)
 @forward './variables';
 
-// 4. Mixins (depends on variables)
+// 6. Mixins (depends on variables)
 @forward './mixins';
 
-// 5. Typography (uses variables and mixins)
+// 7. Typography (uses variables and mixins)
 @forward './typography';

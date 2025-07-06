@@ -1,17 +1,38 @@
 // Use global styles
 @use '@styles/globals' as globals;
 
+// Import theme definitions
+@use '@styles/themes/light';
+@use '@styles/themes/dark';
+@use '@styles/themes/high-contrast';
+@use '@styles/themes/ionic-overrides';
+
 /* Basic app styles */
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text);
+  background-color: var(--color-background);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: var(--font-family-mono);
+}
+
+// Ensure full height
+html,
+body,
+#root {
+  height: 100%;
+}
+
+// Apply theme transitions globally
+body {
+  transition: 
+    background-color var(--transition-theme),
+    color var(--transition-theme);
 }

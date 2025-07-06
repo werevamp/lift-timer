@@ -1,0 +1,152 @@
+// Ionic-specific theme overrides
+// This file ensures Ionic components respect our theme system
+
+// Light theme Ionic overrides
+[data-theme='light'] {
+  // Ionic color variables
+  --ion-color-primary: var(--color-primary);
+  --ion-color-secondary: var(--color-secondary);
+  --ion-color-tertiary: var(--color-tertiary);
+  --ion-color-success: var(--color-success);
+  --ion-color-warning: var(--color-warning);
+  --ion-color-danger: var(--color-danger);
+  --ion-color-light: var(--color-surface-variant);
+  --ion-color-medium: var(--color-text-muted);
+  --ion-color-dark: var(--color-text);
+
+  // Ionic background and text
+  --ion-background-color: var(--color-background);
+  --ion-background-color-rgb: 255, 255, 255;
+  --ion-text-color: var(--color-text);
+  --ion-text-color-rgb: 56, 56, 61;
+  
+  // Ionic component backgrounds
+  --ion-item-background: var(--color-surface);
+  --ion-card-background: var(--color-surface);
+  --ion-toolbar-background: var(--color-surface);
+  --ion-tab-bar-background: var(--color-surface);
+  
+  // Ionic borders
+  --ion-border-color: var(--color-border);
+  
+  // Ionic overlays
+  --ion-overlay-background-color: var(--color-background);
+  
+  // Status bar
+  --ion-statusbar-padding: 0;
+}
+
+// Dark theme Ionic overrides
+[data-theme='dark'] {
+  // Ionic color variables
+  --ion-color-primary: var(--color-primary);
+  --ion-color-secondary: var(--color-secondary);
+  --ion-color-tertiary: var(--color-tertiary);
+  --ion-color-success: var(--color-success);
+  --ion-color-warning: var(--color-warning);
+  --ion-color-danger: var(--color-danger);
+  --ion-color-light: var(--color-surface-variant);
+  --ion-color-medium: var(--color-text-muted);
+  --ion-color-dark: var(--color-text);
+
+  // Ionic background and text
+  --ion-background-color: var(--color-background);
+  --ion-background-color-rgb: 31, 29, 31;
+  --ion-text-color: var(--color-text);
+  --ion-text-color-rgb: 242, 242, 242;
+  
+  // Ionic component backgrounds
+  --ion-item-background: var(--color-surface);
+  --ion-card-background: var(--color-surface);
+  --ion-toolbar-background: var(--color-surface);
+  --ion-tab-bar-background: var(--color-surface);
+  
+  // Ionic borders
+  --ion-border-color: var(--color-border);
+  
+  // Ionic overlays
+  --ion-overlay-background-color: var(--color-background);
+  
+  // Status bar
+  --ion-statusbar-padding: 0;
+}
+
+// High contrast theme Ionic overrides
+[data-theme='high-contrast'] {
+  // Ionic color variables
+  --ion-color-primary: var(--color-primary);
+  --ion-color-secondary: var(--color-secondary);
+  --ion-color-tertiary: var(--color-tertiary);
+  --ion-color-success: var(--color-success);
+  --ion-color-warning: var(--color-warning);
+  --ion-color-danger: var(--color-danger);
+  --ion-color-light: var(--color-surface-variant);
+  --ion-color-medium: var(--color-text);
+  --ion-color-dark: var(--color-text);
+
+  // Ionic background and text
+  --ion-background-color: var(--color-background);
+  --ion-background-color-rgb: 255, 255, 255;
+  --ion-text-color: var(--color-text);
+  --ion-text-color-rgb: 0, 0, 0;
+  
+  // Ionic component backgrounds
+  --ion-item-background: var(--color-surface);
+  --ion-card-background: var(--color-surface);
+  --ion-toolbar-background: var(--color-surface);
+  --ion-tab-bar-background: var(--color-surface);
+  
+  // Ionic borders (thicker for high contrast)
+  --ion-border-color: var(--color-border);
+  --ion-border-width: 2px;
+  
+  // Ionic overlays
+  --ion-overlay-background-color: var(--color-background);
+  
+  // Force stronger text
+  ion-card-title,
+  ion-label,
+  ion-button {
+    font-weight: 600 !important;
+  }
+}
+
+// High contrast dark theme Ionic overrides
+[data-theme='high-contrast-dark'] {
+  // Ionic color variables
+  --ion-color-primary: var(--color-primary);
+  --ion-color-secondary: var(--color-secondary);
+  --ion-color-tertiary: var(--color-tertiary);
+  --ion-color-success: var(--color-success);
+  --ion-color-warning: var(--color-warning);
+  --ion-color-danger: var(--color-danger);
+  --ion-color-light: var(--color-surface-variant);
+  --ion-color-medium: var(--color-text);
+  --ion-color-dark: var(--color-text);
+
+  // Ionic background and text
+  --ion-background-color: var(--color-background);
+  --ion-background-color-rgb: 0, 0, 0;
+  --ion-text-color: var(--color-text);
+  --ion-text-color-rgb: 255, 255, 255;
+  
+  // Ionic component backgrounds
+  --ion-item-background: var(--color-surface);
+  --ion-card-background: var(--color-surface);
+  --ion-toolbar-background: var(--color-surface);
+  --ion-tab-bar-background: var(--color-surface);
+  
+  // Ionic borders (thicker for high contrast)
+  --ion-border-color: var(--color-border);
+  --ion-border-width: 2px;
+  
+  // Ionic overlays
+  --ion-overlay-background-color: var(--color-background);
+  
+  // Force stronger text
+  ion-card-title,
+  ion-label,
+  ion-button {
+    font-weight: 600 !important;
+  }
+}

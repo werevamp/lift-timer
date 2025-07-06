@@ -64,7 +64,7 @@ src/
 1. **Feature-First Architecture**: Organize code by feature in `/features`
 2. **Thin Routes**: Route files only handle routing, import from features
 3. **Unidirectional Dependencies**: `utils → types → lib → hooks → components → features → routes → app`
-4. **Absolute Imports**: Use `@/` prefix for imports
+4. **Absolute Imports**: Use absolute paths for imports across the codebase
 5. **Component Organization**: Co-locate styles, tests, and stories with components
 
 ### Working with Routes
@@ -74,7 +74,7 @@ Routes should be minimal and import from features:
 ```tsx
 // src/routes/timer/index.tsx
 import { createFileRoute } from '@tanstack/react-router'
-import { TimerView } from '@/features/timer'
+import { TimerView } from '../../features/timer'
 
 export const Route = createFileRoute('/timer/')({
   component: TimerPage,
@@ -95,18 +95,51 @@ function TimerPage() {
 ### Styling Guidelines
 
 - Use SCSS modules for component styles
-- Import global styles using path alias: `@use '@styles/globals' as *;`
+- Import global styles using absolute paths: `@use '@styles/globals' as *;`
 - For specific imports: `@use '@styles/globals/variables' as vars;`
 - Follow BEM naming for class names
 - Leverage Ionic components for mobile UI
 - Use rem units via the `rem()` function for better accessibility
+
+### Import Conventions
+
+#### TypeScript/JavaScript Files
+Use absolute imports for better maintainability:
+
+```tsx
+// ✅ Good: Absolute imports
+import { Button } from '@/components/ui/button'
+import { useTimer } from '@/features/timer/hooks/useTimer'
+import { formatTime } from '@/utils/time'
+
+// ⚠️ Use relative imports only for local files within the same component/feature
+import { TimerDisplay } from './TimerDisplay'
+import styles from './timer.module.scss'
+```
+
+#### SCSS Files
+Use absolute paths for global styles:
+
+```scss
+// ✅ Good: Absolute import
+@use '@styles/globals' as *;
+@use '@styles/globals/variables' as vars;
+
+// ⚠️ Use relative imports only for local component styles
+@import './timer-local-styles';
+```
+
+#### When to Use Relative Imports
+- Files within the same directory or component
+- Private/internal files that shouldn't be accessed from outside
+- Component-specific styles or utilities
 
 ## Development Notes
 
 - TanStack Router automatically generates route tree
 - Vite configured for network access (mobile development)
 - SCSS support with global variables and mixins
-- TypeScript configured with absolute imports
+- TypeScript configured for the project
 - Hot module replacement enabled
 - Capacitor configured for iOS/Android deployment
 - Follow file naming conventions:

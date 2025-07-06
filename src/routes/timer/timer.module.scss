@@ -1,20 +1,20 @@
 @use '@styles/globals' as *;
 
 .timerDisplay {
-  font-size: $font-size-4xl;
-  font-weight: $font-weight-bold;
-  color: $primary-color;
-  font-family: monospace;
-  margin-bottom: $spacing-xl;
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  font-family: var(--font-family-mono);
+  margin-bottom: var(--spacing-xl);
   
   @include md {
-    font-size: calc($font-size-4xl * 1.5);
+    font-size: calc(var(--font-size-4xl) * 1.5);
   }
 }
 
 .buttonGroup {
   @include flex-center;
-  gap: $spacing-md;
+  gap: var(--spacing-md);
   
   ion-button {
     min-width: rem(100px);
@@ -22,8 +22,10 @@
 }
 
 .timerCard {
-  @include card($spacing-lg, $radius-lg);
+  @include card(var(--spacing-lg), var(--radius-lg));
   text-align: center;
   max-width: rem(600px);
   margin: 0 auto;
+  background-color: var(--card-background);
+  box-shadow: var(--card-shadow);
 }
