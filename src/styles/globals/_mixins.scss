@@ -1,4 +1,7 @@
 // Responsive Breakpoint Mixins
+@use 'sass:color';
+@use './variables' as *;
+
 @mixin xs {
   @media (min-width: #{$breakpoint-xs}) {
     @content;
@@ -46,17 +49,17 @@
 @mixin button-variant($bg-color, $text-color: white) {
   background-color: $bg-color;
   color: $text-color;
-  
+
   &:hover {
-    background-color: darken($bg-color, 10%);
+    background-color: color.adjust($bg-color, $lightness: -10%);
   }
-  
+
   &:active {
-    background-color: darken($bg-color, 15%);
+    background-color: color.adjust($bg-color, $lightness: -15%);
   }
-  
+
   &:disabled {
-    background-color: lighten($bg-color, 20%);
+    background-color: color.adjust($bg-color, $lightness: 20%);
     cursor: not-allowed;
     opacity: 0.6;
   }
@@ -81,3 +84,4 @@
 @mixin transition($properties: all, $duration: 0.3s, $easing: ease) {
   transition: $properties $duration $easing;
 }
+

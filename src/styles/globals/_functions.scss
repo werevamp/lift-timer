@@ -1,0 +1,85 @@
+// SCSS Functions for Unit Conversion
+@use 'sass:math';
+@use 'sass:meta';
+
+// Base font size for rem calculations
+$base-font-size: 16px !default;
+
+// Convert pixels to rem
+// Usage: font-size: rem(24px); // outputs 1.5rem
+@function rem($px) {
+  @if meta.type-of($px) != 'number' {
+    @error 'rem() function expects a number value';
+  }
+  
+  @if math.unit($px) == 'rem' {
+    @return $px;
+  }
+  
+  @if math.unit($px) != 'px' {
+    @error 'rem() function expects value in px';
+  }
+  
+  @return math.div($px, $base-font-size) * 1rem;
+}
+
+// Convert pixels to em (relative to parent)
+// Usage: padding: em(16px); // outputs 1em
+@function em($px, $context: $base-font-size) {
+  @if meta.type-of($px) != 'number' {
+    @error 'em() function expects a number value';
+  }
+  
+  @if math.unit($px) == 'em' {
+    @return $px;
+  }
+  
+  @if math.unit($px) != 'px' {
+    @error 'em() function expects value in px';
+  }
+  
+  @return math.div($px, $context) * 1em;
+}
+
+// Strip unit from a value
+// Usage: strip-unit(16px) // outputs 16
+@function strip-unit($value) {
+  @if meta.type-of($value) != 'number' {
+    @error 'strip-unit() function expects a number value';
+  }
+  
+  @return math.div($value, ($value * 0 + 1));
+}
+
+// Convert any value to pixels (for calculations)
+// Usage: to-px(1.5rem) // outputs 24px
+@function to-px($value) {
+  @if math.unit($value) == 'px' {
+    @return $value;
+  }
+  
+  @if math.unit($value) == 'rem' {
+    @return strip-unit($value) * $base-font-size;
+  }
+  
+  @if math.unit($value) == 'em' {
+    @return strip-unit($value) * $base-font-size;
+  }
+  
+  @error 'to-px() only supports px, rem, and em units';
+}
+
+// Responsive font size with min and max
+// Usage: font-size: fluid-font(16px, 24px);
+@function fluid-font($min-size, $max-size, $min-width: 320px, $max-width: 1200px) {
+  $min-size-rem: rem($min-size);
+  $max-size-rem: rem($max-size);
+  $min-width-rem: rem($min-width);
+  $max-width-rem: rem($max-width);
+  
+  @return clamp(
+    #{$min-size-rem},
+    calc(#{$min-size-rem} + #{strip-unit($max-size-rem - $min-size-rem)} * ((100vw - #{$min-width}) / #{strip-unit($max-width - $min-width)})),
+    #{$max-size-rem}
+  );
+}

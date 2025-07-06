@@ -1,11 +1,17 @@
 // Global SCSS Index File
-// Import all global partials in the correct order
+// Forward all global partials in the correct order
 
-// 1. Variables (must come first)
-@import './variables';
+// 1. Functions (must come first for conversions)
+@forward './functions';
 
-// 2. Mixins (depends on variables)
-@import './mixins';
+// 2. Reset (sets base font size)
+@forward './reset';
 
-// 3. Typography (uses variables and mixins)
-@import './typography';
+// 3. Variables (uses functions for rem values)
+@forward './variables';
+
+// 4. Mixins (depends on variables)
+@forward './mixins';
+
+// 5. Typography (uses variables and mixins)
+@forward './typography';

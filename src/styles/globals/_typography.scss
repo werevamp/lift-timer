@@ -1,4 +1,7 @@
 // Typography Global Styles
+@use 'sass:color';
+@use './variables' as *;
+@use './mixins' as *;
 
 // Heading Styles
 h1, h2, h3, h4, h5, h6 {
@@ -54,7 +57,7 @@ a {
   @include transition(color);
   
   &:hover {
-    color: darken($primary-color, 10%);
+    color: color.adjust($primary-color, $lightness: -10%);
     text-decoration: underline;
   }
 }

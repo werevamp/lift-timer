@@ -95,9 +95,11 @@ function TimerPage() {
 ### Styling Guidelines
 
 - Use SCSS modules for component styles
-- Import global variables/mixins: `@import '@/styles/globals'`
+- Import global styles using path alias: `@use '@styles/globals' as *;`
+- For specific imports: `@use '@styles/globals/variables' as vars;`
 - Follow BEM naming for class names
 - Leverage Ionic components for mobile UI
+- Use rem units via the `rem()` function for better accessibility
 
 ## Development Notes
 

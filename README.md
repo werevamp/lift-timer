@@ -103,6 +103,26 @@ This project follows an adapted version of the [Bulletproof React](https://githu
 - `/dist` - Built web assets (generated after `npm run build`)
 - `/docs` - Project documentation
 
+### 🎨 Styling Guidelines
+
+This project uses SCSS with a modern approach:
+
+- **Path Aliases**: Import global styles using `@use '@styles/globals' as *;`
+- **REM Units**: Use the `rem()` function for accessible, scalable units
+- **CSS Modules**: Component-specific styles use `.module.scss` files
+- **Global Styles**: Variables, mixins, and utilities in `/src/styles/globals/`
+
+Example:
+```scss
+// In component SCSS files
+@use '@styles/globals' as *;
+
+.button {
+  padding: $spacing-sm $spacing-md; // Uses rem-based spacing
+  font-size: rem(18px); // Converts to 1.125rem
+}
+```
+
 ## Available Scripts
 
 - `npm run dev` - Start development server

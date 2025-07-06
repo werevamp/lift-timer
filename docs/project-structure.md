@@ -134,7 +134,9 @@ utils → types → lib → hooks → components → features → routes → app
 - ❌ Features should NOT import from routes
 - ❌ Shared components should NOT import from features
 
-### 4. **Absolute Imports**
+### 4. **Import Conventions**
+
+#### TypeScript/JavaScript Files
 Use absolute imports for better readability and easier refactoring:
 
 ```tsx
@@ -145,12 +147,36 @@ import { Button } from '../../../components/ui/button'
 import { Button } from '@/components/ui/button'
 ```
 
+#### SCSS Files
+Use path aliases for cleaner imports:
+
+```scss
+// ❌ Long relative paths
+@use '../../../styles/globals/index.scss' as *;
+
+// ✅ Path alias
+@use '@styles/globals' as *;
+```
+
+Configure in `vite.config.js`:
+```javascript
+export default defineConfig({
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+      '@styles': path.resolve(__dirname, './src/styles')
+    }
+  }
+})
+```
+
 Configure in `tsconfig.json`:
 ```json
 {
   "compilerOptions": {
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@styles/*": ["./src/styles/*"]
     }
   }
 }
@@ -304,6 +330,10 @@ export type { Workout, WorkoutFormData } from './types'
    - Routes: lowercase
 5. **Document complex logic** - Add JSDoc comments for complex functions
 6. **Write tests** - Colocate tests with the code they test
+7. **SCSS Import Guidelines**:
+   - Use `@styles` alias for global styles: `@use '@styles/globals' as *;`
+   - Import only what you need to avoid bloat
+   - Use namespaced imports when you need specific items: `@use '@styles/globals/variables' as vars;`
 
 ## 🚀 Benefits
 

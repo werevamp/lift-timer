@@ -1,5 +1,5 @@
-// Import global styles
-@import './styles/globals/index.scss';
+// Use global styles
+@use '@styles/globals' as globals;
 
 /* Basic app styles */
 body {

@@ -75,4 +75,3 @@ function Timer() {
     </div>
   )
 }
-
