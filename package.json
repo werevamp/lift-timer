@@ -8,7 +8,10 @@
     "preview": "vite preview",
     "ios": "npm run build && npx cap sync ios && npx cap open ios",
     "ios:dev": "npx cap run ios --live-reload --host 192.168.1.11 --port 5173 --target=\"8E080EEA-76E9-4678-825D-C67A2EAB40F2\"",
-    "ios:build": "npm run build && npx cap sync ios"
+    "ios:build": "npm run build && npx cap sync ios",
+    "android": "npm run build && npx cap sync android && npx cap open android",
+    "android:dev": "npx cap run android --live-reload --external",
+    "android:build": "npm run build && npx cap sync android"
   },
   "keywords": [],
   "author": "",
