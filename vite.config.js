@@ -13,6 +13,15 @@ export default defineConfig({
     host: true, // This enables network access
     port: 5173, // Default Vite port
   },
+  optimizeDeps: {
+    include: [
+      '@fortawesome/fontawesome-svg-core',
+      '@fortawesome/free-solid-svg-icons',
+      '@fortawesome/free-regular-svg-icons',
+      '@fortawesome/free-brands-svg-icons',
+      '@fortawesome/react-fontawesome'
+    ]
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
