@@ -3,8 +3,8 @@
 
 @use '../globals/theme-system' as *;
 
-// Light theme definition - clean and bright colors
-@include apply-theme('light') {
+// Light theme styles as a mixin for reuse
+@mixin light-theme-styles {
   // Color primitives
   --color-primary: hsl(217, 100%, 61%);
   --color-primary-light: hsl(217, 100%, 71%);
@@ -52,3 +52,5 @@
   // Set color scheme
   color-scheme: light;
 }
+
+// Note: Theme application is now handled by _theme-controller.scss

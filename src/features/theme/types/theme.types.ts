@@ -1,6 +1,6 @@
 // Theme type definitions
 
-export type ThemeName = 'light' | 'dark' | 'high-contrast' | 'system' | string;
+export type ThemeName = 'light' | 'dark' | 'system' | string;
 
 export interface Theme {
   name: ThemeName;

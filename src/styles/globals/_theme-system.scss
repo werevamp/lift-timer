@@ -13,24 +13,6 @@
   }
 }
 
-// ===========================================
-// Smooth theme transitions
-// ===========================================
-
-// Apply transitions to theme-affected properties
-* {
-  transition: 
-    background-color var(--transition-theme),
-    border-color var(--transition-theme),
-    color var(--transition-theme),
-    fill var(--transition-theme),
-    stroke var(--transition-theme);
-}
-
-// Prevent transitions on initial load
-.no-transitions * {
-  transition: none !important;
-}
 
 // ===========================================
 // Theme-aware components

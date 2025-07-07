@@ -1,0 +1,316 @@
+// Theme Controller
+// Manages theme switching logic and applies theme styles
+
+@use '../themes/light' as light-theme;
+@use '../themes/dark' as dark-theme;
+@use './theme-system' as *;
+
+// ===========================================
+// Theme Detection & Application
+// ===========================================
+
+// Set theme custom property for container queries
+:root {
+  --theme: light;
+  color-scheme: light;
+  
+  // Default to light theme styles
+  @include light-theme.light-theme-styles;
+  
+  // Auto-detect system preference
+  @media (prefers-color-scheme: dark) {
+    --theme: dark;
+    color-scheme: dark;
+  }
+}
+
+// ===========================================
+// Manual Theme Selection (via data-theme)
+// ===========================================
+
+// When user explicitly selects a theme, it overrides system preference
+[data-theme='light'] {
+  --theme: light;
+  color-scheme: light;
+  @include light-theme.light-theme-styles;
+}
+
+[data-theme='dark'] {
+  --theme: dark;
+  color-scheme: dark;
+  @include dark-theme.dark-theme-styles;
+}
+
+
+// ===========================================
+// System Theme Detection (Auto Mode)
+// ===========================================
+
+// When no theme is explicitly set, follow system preference
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    @include dark-theme.dark-theme-styles;
+  }
+}
+
+// ===========================================
+// Container Query Support (Modern Browsers)
+// ===========================================
+
+// Enable container queries for theme-aware components
+@supports (container-type: style) {
+  :root {
+    container-type: style;
+  }
+  
+  // Body-level theme-aware styles
+  body {
+    // Default (light) body styles
+    & {
+      --body-bg: var(--color-background);
+      --body-color: var(--color-text);
+    }
+    
+    // Dark theme via container query
+    @container style(--theme: dark) {
+      --body-bg: var(--color-background);
+      --body-color: var(--color-text);
+    }
+    
+    // Apply the styles
+    & {
+      background: var(--body-bg);
+      color: var(--body-color);
+    }
+  }
+  
+  // Component-level theme awareness
+  .theme-aware {
+    // Light theme defaults
+    & {
+      --component-bg: var(--color-surface);
+      --component-border: var(--color-border);
+      --component-text: var(--color-text);
+    }
+    
+    @container style(--theme: dark) {
+      --component-bg: var(--color-surface);
+      --component-border: var(--color-border);
+      --component-text: var(--color-text);
+    }
+    
+    & {
+      background: var(--component-bg);
+      border-color: var(--component-border);
+      color: var(--component-text);
+    }
+  }
+  
+  // Card component example
+  .card {
+    @container style(--theme: light) {
+      box-shadow: var(--shadow-md-theme);
+    }
+    
+    @container style(--theme: dark) {
+      box-shadow: var(--shadow-sm-theme);
+    }
+  }
+  
+  // Button hover states based on theme
+  .button {
+    @container style(--theme: light) {
+      &:hover {
+        filter: brightness(0.95);
+      }
+    }
+    
+    @container style(--theme: dark) {
+      &:hover {
+        filter: brightness(1.1);
+      }
+    }
+  }
+}
+
+// ===========================================
+// Fallback for browsers without container queries
+// ===========================================
+
+@supports not (container-type: style) {
+  // Use attribute selectors as fallback
+  [data-theme='light'] body {
+    background: var(--color-background);
+    color: var(--color-text);
+  }
+  
+  [data-theme='dark'] body {
+    background: var(--color-background);
+    color: var(--color-text);
+  }
+  
+  // System preference fallback
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) body {
+      background: var(--color-background);
+      color: var(--color-text);
+    }
+  }
+}
+
+
+// ===========================================
+// Theme Transition Control
+// ===========================================
+
+// Add class to prevent transitions on initial load
+html.theme-transition * {
+  transition: 
+    background-color var(--transition-theme),
+    border-color var(--transition-theme),
+    color var(--transition-theme),
+    fill var(--transition-theme),
+    stroke var(--transition-theme) !important;
+}
+
+// ===========================================
+// JavaScript Theme Detection Helper
+// ===========================================
+
+// These classes can be added via JS for more control
+.theme-light {
+  --theme: light;
+  color-scheme: light;
+  @include light-theme.light-theme-styles;
+}
+
+.theme-dark {
+  --theme: dark;
+  color-scheme: dark;
+  @include dark-theme.dark-theme-styles;
+}
+
+// ===========================================
+// Theme-specific utility classes
+// ===========================================
+
+// Show/hide elements based on theme
+@supports (container-type: style) {
+  .show-on-dark {
+    display: none;
+    
+    @container style(--theme: dark) {
+      display: initial;
+    }
+  }
+  
+  .show-on-light {
+    display: none;
+    
+    @container style(--theme: light) {
+      display: initial;
+    }
+  }
+  
+  .hide-on-dark {
+    @container style(--theme: dark) {
+      display: none;
+    }
+  }
+  
+  .hide-on-light {
+    @container style(--theme: light) {
+      display: none;
+    }
+  }
+}
+
+// Fallback for older browsers
+@supports not (container-type: style) {
+  [data-theme='dark'] .show-on-dark,
+  :root:not([data-theme]) .show-on-dark {
+    @media (prefers-color-scheme: dark) {
+      display: initial;
+    }
+  }
+  
+  [data-theme='light'] .show-on-light,
+  :root:not([data-theme]) .show-on-light {
+    @media (prefers-color-scheme: light) {
+      display: initial;
+    }
+  }
+  
+  [data-theme='dark'] .hide-on-dark,
+  :root:not([data-theme]) .hide-on-dark {
+    @media (prefers-color-scheme: dark) {
+      display: none;
+    }
+  }
+  
+  [data-theme='light'] .hide-on-light,
+  :root:not([data-theme]) .hide-on-light {
+    @media (prefers-color-scheme: light) {
+      display: none;
+    }
+  }
+}
+
+
+// ===========================================
+// Theme-specific adjustments
+// ===========================================
+
+// iOS safe area adjustments per theme
+@supports (container-type: style) {
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top, 0);
+    
+    // Add theme-specific adjustments if needed
+    @container style(--theme: dark) {
+      // Dark theme specific safe area styles
+    }
+  }
+}
+
+// ===========================================
+// Theme-aware CSS variables
+// ===========================================
+
+// These variables automatically adjust based on theme
+:root {
+  // Adaptive colors that change with theme
+  & {
+    --adaptive-shadow: var(--shadow-md-theme);
+    --adaptive-radius: var(--radius-md);
+    --adaptive-gap: var(--spacing-md);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    &:not([data-theme]) {
+      --adaptive-shadow: var(--shadow-sm-theme);
+    }
+  }
+}
+
+[data-theme='dark'] {
+  --adaptive-shadow: var(--shadow-sm-theme);
+}
+
+// ===========================================
+// Debug Mode (shows current theme)
+// ===========================================
+
+body[data-debug-theme]::before {
+  content: attr(data-debug-theme);
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  z-index: var(--z-index-tooltip);
+  pointer-events: none;
+}

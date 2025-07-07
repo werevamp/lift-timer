@@ -62,14 +62,4 @@
   color-scheme: dark;
 }
 
-// Apply dark theme
-@include apply-theme('dark') {
-  @include dark-theme-styles;
-}
-
-// Auto dark mode based on system preference
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    @include dark-theme-styles;
-  }
-}
+// Note: Theme application is now handled by _theme-controller.scss

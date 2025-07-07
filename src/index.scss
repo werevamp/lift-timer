@@ -2,7 +2,5 @@
 // This file imports all necessary styles for the application
 
 // Import all global styles (includes reset, variables, mixins, typography, themes, etc.)
+// The theme controller in globals now handles all theme imports and logic
 @use '@styles/globals' as globals;
-
-// Import all theme definitions
-@use '@styles/themes' as themes;

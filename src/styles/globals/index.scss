@@ -24,3 +24,6 @@
 
 // 8. App Base (core application styles)
 @forward './app-base';
+
+// 9. Theme Controller (handles theme switching logic)
+@forward './theme-controller';
