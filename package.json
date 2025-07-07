@@ -19,13 +19,10 @@
   "description": "",
   "dependencies": {
     "@capacitor/android": "^7.4.1",
-    "@capacitor/cli": "6.2.1",
+    "@capacitor/cli": "7.4.1",
     "@capacitor/core": "7.4.1",
     "@capacitor/ios": "^7.4.1",
-    "@ionic/react": "^8.6.3",
-    "@ionic/react-router": "^8.6.3",
     "@tanstack/react-router": "^1.124.2",
-    "ionicons": "^8.0.10",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },

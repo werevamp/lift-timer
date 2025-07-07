@@ -1,0 +1,41 @@
+@use '@styles/globals' as *;
+
+.container {
+  max-width: rem(600px);
+  margin: 0 auto;
+}
+
+.highlight {
+  margin-top: rem(16px);
+}
+
+.themeSection {
+  display: flex;
+  align-items: center;
+  gap: rem(16px);
+  margin-top: rem(24px);
+  padding: rem(16px);
+  background-color: var(--color-surface-variant);
+  border-radius: var(--radius-md);
+}
+
+.label {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.themeTest {
+  margin-top: rem(16px);
+  padding: rem(16px);
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-md);
+  text-align: center;
+  font-weight: 500;
+}
+
+.themeInfo {
+  margin-top: rem(16px);
+  font-size: rem(14px);
+  color: var(--color-text-secondary);
+}

@@ -1,38 +1,8 @@
-// Use global styles
+// Main Application Styles Entry Point
+// This file imports all necessary styles for the application
+
+// Import all global styles (includes reset, variables, mixins, typography, themes, etc.)
 @use '@styles/globals' as globals;
 
-// Import theme definitions
-@use '@styles/themes/light';
-@use '@styles/themes/dark';
-@use '@styles/themes/high-contrast';
-@use '@styles/themes/ionic-overrides';
-
-/* Basic app styles */
-body {
-  margin: 0;
-  font-family: var(--font-family-base);
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-normal);
-  color: var(--color-text);
-  background-color: var(--color-background);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: var(--font-family-mono);
-}
-
-// Ensure full height
-html,
-body,
-#root {
-  height: 100%;
-}
-
-// Apply theme transitions globally
-body {
-  transition: 
-    background-color var(--transition-theme),
-    color var(--transition-theme);
-}
+// Import all theme definitions
+@use '@styles/themes' as themes;

@@ -1,5 +1,4 @@
 import { useThemeContext } from '../providers/theme-provider';
-import type { ThemeName } from '../types/theme.types';
 
 export function useTheme() {
   const context = useThemeContext();
@@ -39,7 +38,7 @@ export function useThemeStyles<T extends Record<string, any>>(
 
 // Hook to get CSS variable value
 export function useThemeVariable(variableName: string): string {
-  const { resolvedTheme } = useTheme();
+  useTheme(); // Called for side effects
   
   // This would need to be enhanced to actually read CSS variables
   // For now, it's a placeholder that shows the pattern

@@ -3,33 +3,25 @@
 
 @use '../globals/theme-system' as *;
 
-// Light theme is the default, so these values match the root defaults
-// This file serves as documentation and can be used to reset to light theme
+// Light theme definition - clean and bright colors
 @include apply-theme('light') {
   // Color primitives
-  --color-primary-h: 217;
-  --color-primary-s: 100%;
-  --color-primary-l: 61%;
+  --color-primary: hsl(217, 100%, 61%);
+  --color-primary-light: hsl(217, 100%, 71%);
+  --color-primary-dark: hsl(217, 100%, 51%);
+  --color-primary-alpha-10: hsla(217, 100%, 61%, 0.1);
+  --color-primary-alpha-20: hsla(217, 100%, 61%, 0.2);
+  --color-primary-alpha: hsla(217, 100%, 61%, 0.2);
   
-  --color-secondary-h: 192;
-  --color-secondary-s: 100%;
-  --color-secondary-l: 62%;
+  --color-secondary: hsl(192, 100%, 62%);
+  --color-secondary-light: hsl(192, 100%, 72%);
+  --color-secondary-dark: hsl(192, 100%, 52%);
   
-  --color-tertiary-h: 231;
-  --color-tertiary-s: 100%;
-  --color-tertiary-l: 66%;
+  --color-tertiary: hsl(231, 100%, 66%);
   
-  --color-success-h: 144;
-  --color-success-s: 69%;
-  --color-success-l: 53%;
-  
-  --color-warning-h: 45;
-  --color-warning-s: 100%;
-  --color-warning-l: 51%;
-  
-  --color-danger-h: 354;
-  --color-danger-s: 81%;
-  --color-danger-l: 60%;
+  --color-success: hsl(144, 69%, 53%);
+  --color-warning: hsl(45, 100%, 51%);
+  --color-danger: hsl(354, 81%, 60%);
   
   // Semantic colors
   --color-background: hsl(0, 0%, 100%);

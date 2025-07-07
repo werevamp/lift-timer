@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-LiftTimer is a workout timing application built with React, Vite, TanStack Router, and Ionic Framework. The application follows an adapted version of the Bulletproof React architecture for scalability and maintainability.
+LiftTimer is a workout timing application built with React, Vite, and TanStack Router. The application follows an adapted version of the Bulletproof React architecture for scalability and maintainability.
 
 ## Development Commands
 
@@ -20,7 +20,6 @@ LiftTimer is a workout timing application built with React, Vite, TanStack Route
 - **TypeScript** - Type safety
 - **Vite** - Build tool and dev server
 - **TanStack Router** - File-based routing
-- **Ionic React** - Mobile UI components
 - **Capacitor** - Native mobile deployment
 - **SCSS** - Styling with CSS modules
 - **PostCSS** - CSS processing
@@ -102,7 +101,7 @@ function TimerPage() {
 - CSS variables enable runtime theming and better maintainability
 - For specific imports: `@use '@styles/globals/variables' as vars;`
 - Follow BEM naming for class names
-- Leverage Ionic components for mobile UI
+- Use custom components for consistent UI
 - Use rem units via the `rem()` function for better accessibility
 - Exception: Breakpoints must remain as SCSS variables (CSS variables can't be used in @media queries)
 

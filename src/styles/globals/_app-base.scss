@@ -1,0 +1,95 @@
+// Base App Styles
+// Core application styles that apply globally
+
+@use './css-properties';
+
+// ===========================================
+// Base Element Styles
+// ===========================================
+
+body {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: var(--font-family-mono);
+}
+
+// ===========================================
+// Layout Helpers
+// ===========================================
+
+// Note: Full height is already set in _reset.scss
+
+// ===========================================
+// Accessibility Enhancements
+// ===========================================
+
+// Skip to main content link (for screen readers)
+.skip-to-main {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  padding: var(--spacing-sm);
+  z-index: var(--z-index-tooltip);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+
+  &:focus {
+    top: var(--spacing-sm);
+  }
+}
+
+// ===========================================
+// Utility Classes
+// ===========================================
+
+// Screen reader only content
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+// Container utilities
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+
+  @media (min-width: 768px) {
+    padding: 0 var(--spacing-lg);
+  }
+}
+
+// ===========================================
+// Print Styles
+// ===========================================
+
+@media print {
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+
+  // Hide UI elements when printing
+  .no-print {
+    display: none !important;
+  }
+}
+

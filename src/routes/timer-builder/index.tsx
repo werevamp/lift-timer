@@ -1,9 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/timer-builder/')({
-  component: TimerBuilder,
+  component: TimerBuilderPage,
 })
 
-function TimerBuilder() {
+function TimerBuilderPage() {
   return <div>timer builder</div>
 }

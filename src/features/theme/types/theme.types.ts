@@ -11,14 +11,17 @@ export interface Theme {
 
 export interface ThemeColors {
   // Primary colors
-  primaryHue: number;
-  primarySaturation: string;
-  primaryLightness: string;
+  primary: string;
+  primaryLight: string;
+  primaryDark: string;
   
   // Secondary colors
-  secondaryHue: number;
-  secondarySaturation: string;
-  secondaryLightness: string;
+  secondary: string;
+  secondaryLight: string;
+  secondaryDark: string;
+  
+  // Tertiary color
+  tertiary: string;
   
   // Background and surface
   background: string;
