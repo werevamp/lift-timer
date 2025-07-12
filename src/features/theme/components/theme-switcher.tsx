@@ -1,18 +1,45 @@
 import { useTheme } from '../hooks/use-theme'
+import { ThemeName } from '../types/theme.types'
 import styles from './theme-switcher.module.scss'
 
 export function ThemeSwitcher() {
-  const { setTheme, isDark } = useTheme()
+  const { theme, setTheme } = useTheme()
 
   return (
-    <div className={styles.themeSwitcher}>
-      <button
-        className={styles.themeToggle}
-        onClick={() => setTheme(isDark ? 'light' : 'dark')}
-        aria-label="Toggle theme"
-      >
-        {isDark ? <div>Sun</div> : <div>Moon</div>}
-      </button>
+    <div className={styles['theme-switcher']}>
+      <div>
+        <input
+          id="theme-system"
+          type="radio"
+          name="theme"
+          value="system"
+          checked={theme === 'system'}
+          onChange={() => setTheme('system')}
+        />
+        <label htmlFor="theme-system">System</label>
+      </div>
+      <div>
+        <input
+          id="theme-light"
+          type="radio"
+          name="theme"
+          value="light"
+          checked={theme === 'light'}
+          onChange={() => setTheme('light')}
+        />
+        <label htmlFor="theme-light">Light</label>
+      </div>
+      <div>
+        <input
+          id="theme-dark"
+          type="radio"
+          name="theme"
+          value="dark"
+          checked={theme === 'dark'}
+          onChange={() => setTheme('dark')}
+        />
+        <label htmlFor="theme-dark">Dark</label>
+      </div>
     </div>
   )
 }
@@ -24,7 +51,7 @@ export function ThemeSelector() {
     <select
       id="theme-select"
       value={theme}
-      onChange={(e) => setTheme(e.target.value)}
+      onChange={(e) => setTheme(e.target.value as ThemeName)}
       className={styles.themeSelect}
     >
       <option value="system">System</option>
@@ -36,4 +63,3 @@ export function ThemeSelector() {
     </select>
   )
 }
-

@@ -9,14 +9,20 @@
 // Theme Detection & Application
 // ===========================================
 
+// Disable transitions during theme change
+.no-transitions,
+.no-transitions * {
+  transition: none !important;
+}
+
 // Set theme custom property for container queries
 :root {
   --theme: light;
   color-scheme: light;
-  
+
   // Default to light theme styles
   @include light-theme.light-theme-styles;
-  
+
   // Auto-detect system preference
   @media (prefers-color-scheme: dark) {
     --theme: dark;
@@ -41,7 +47,6 @@
   @include dark-theme.dark-theme-styles;
 }
 
-
 // ===========================================
 // System Theme Detection (Auto Mode)
 // ===========================================
@@ -62,7 +67,7 @@
   :root {
     container-type: style;
   }
-  
+
   // Body-level theme-aware styles
   body {
     // Default (light) body styles
@@ -70,20 +75,20 @@
       --body-bg: var(--color-background);
       --body-color: var(--color-text);
     }
-    
+
     // Dark theme via container query
     @container style(--theme: dark) {
       --body-bg: var(--color-background);
       --body-color: var(--color-text);
     }
-    
+
     // Apply the styles
     & {
       background: var(--body-bg);
       color: var(--body-color);
     }
   }
-  
+
   // Component-level theme awareness
   .theme-aware {
     // Light theme defaults
@@ -92,31 +97,31 @@
       --component-border: var(--color-border);
       --component-text: var(--color-text);
     }
-    
+
     @container style(--theme: dark) {
       --component-bg: var(--color-surface);
       --component-border: var(--color-border);
       --component-text: var(--color-text);
     }
-    
+
     & {
       background: var(--component-bg);
       border-color: var(--component-border);
       color: var(--component-text);
     }
   }
-  
+
   // Card component example
   .card {
     @container style(--theme: light) {
       box-shadow: var(--shadow-md-theme);
     }
-    
+
     @container style(--theme: dark) {
       box-shadow: var(--shadow-sm-theme);
     }
   }
-  
+
   // Button hover states based on theme
   .button {
     @container style(--theme: light) {
@@ -124,7 +129,7 @@
         filter: brightness(0.95);
       }
     }
-    
+
     @container style(--theme: dark) {
       &:hover {
         filter: brightness(1.1);
@@ -143,12 +148,12 @@
     background: var(--color-background);
     color: var(--color-text);
   }
-  
+
   [data-theme='dark'] body {
     background: var(--color-background);
     color: var(--color-text);
   }
-  
+
   // System preference fallback
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme]) body {
@@ -158,14 +163,13 @@
   }
 }
 
-
 // ===========================================
 // Theme Transition Control
 // ===========================================
 
 // Add class to prevent transitions on initial load
 html.theme-transition * {
-  transition: 
+  transition:
     background-color var(--transition-theme),
     border-color var(--transition-theme),
     color var(--transition-theme),
@@ -198,26 +202,26 @@ html.theme-transition * {
 @supports (container-type: style) {
   .show-on-dark {
     display: none;
-    
+
     @container style(--theme: dark) {
       display: initial;
     }
   }
-  
+
   .show-on-light {
     display: none;
-    
+
     @container style(--theme: light) {
       display: initial;
     }
   }
-  
+
   .hide-on-dark {
     @container style(--theme: dark) {
       display: none;
     }
   }
-  
+
   .hide-on-light {
     @container style(--theme: light) {
       display: none;
@@ -233,21 +237,21 @@ html.theme-transition * {
       display: initial;
     }
   }
-  
+
   [data-theme='light'] .show-on-light,
   :root:not([data-theme]) .show-on-light {
     @media (prefers-color-scheme: light) {
       display: initial;
     }
   }
-  
+
   [data-theme='dark'] .hide-on-dark,
   :root:not([data-theme]) .hide-on-dark {
     @media (prefers-color-scheme: dark) {
       display: none;
     }
   }
-  
+
   [data-theme='light'] .hide-on-light,
   :root:not([data-theme]) .hide-on-light {
     @media (prefers-color-scheme: light) {
@@ -255,7 +259,6 @@ html.theme-transition * {
     }
   }
 }
-
 
 // ===========================================
 // Theme-specific adjustments
@@ -265,7 +268,7 @@ html.theme-transition * {
 @supports (container-type: style) {
   .safe-area-top {
     padding-top: env(safe-area-inset-top, 0);
-    
+
     // Add theme-specific adjustments if needed
     @container style(--theme: dark) {
       // Dark theme specific safe area styles
@@ -285,7 +288,7 @@ html.theme-transition * {
     --adaptive-radius: var(--radius-md);
     --adaptive-gap: var(--spacing-md);
   }
-  
+
   @media (prefers-color-scheme: dark) {
     &:not([data-theme]) {
       --adaptive-shadow: var(--shadow-sm-theme);
@@ -314,3 +317,4 @@ body[data-debug-theme]::before {
   z-index: var(--z-index-tooltip);
   pointer-events: none;
 }
+

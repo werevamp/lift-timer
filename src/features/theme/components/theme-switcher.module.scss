@@ -1,67 +1,35 @@
 @use '@styles/globals' as *;
 
-.themeSwitcher {
+.theme-switcher {
+  $border: 1px solid var(--color-border);
   display: flex;
-  align-items: center;
-}
 
-.themeToggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: rem(40px);
-  height: rem(40px);
-  padding: 0;
-  background-color: transparent;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  color: var(--color-text);
-  cursor: pointer;
-  transition: 
-    background-color var(--transition-fast),
-    border-color var(--transition-fast),
-    color var(--transition-fast);
+  & > div {
+    &:last-of-type > label {
+      border: $border;
+      border-top-right-radius: var(--radius-sm);
+      border-bottom-right-radius: var(--radius-sm);
+    }
 
-  &:hover {
-    background-color: var(--color-surface-hover);
-    border-color: var(--color-primary);
-    color: var(--color-primary);
+    &:first-of-type > label {
+      border-top-left-radius: var(--radius-sm);
+      border-bottom-left-radius: var(--radius-sm);
+    }
   }
 
-  &:active {
-    transform: scale(0.95);
+  label {
+    cursor: pointer;
+    padding: rem(4) rem(8);
+    border: $border;
+    border-right: 0;
   }
 
-  svg {
-    display: block;
+  input[type='radio'] {
+    display: none;
+
+    &:checked + label {
+      background: var(--color-primary-alpha-20);
+    }
   }
 }
 
-.themeSelect {
-  padding: rem(8px) rem(12px);
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  color: var(--color-text);
-  font-size: rem(14px);
-  font-family: inherit;
-  cursor: pointer;
-  transition: 
-    border-color var(--transition-fast),
-    box-shadow var(--transition-fast);
-
-  &:hover {
-    border-color: var(--color-primary);
-  }
-
-  &:focus {
-    outline: none;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px var(--color-primary-alpha);
-  }
-
-  option {
-    background-color: var(--color-surface);
-    color: var(--color-text);
-  }
-}
