@@ -15,6 +15,7 @@ This project uses CSS custom properties (variables) for all dynamic styling valu
 ### Colors
 
 #### Primary Colors
+
 ```css
 --color-primary
 --color-primary-light
@@ -33,6 +34,7 @@ This project uses CSS custom properties (variables) for all dynamic styling valu
 ```
 
 #### Semantic Colors
+
 ```css
 --color-background
 --color-background-secondary
@@ -52,12 +54,14 @@ This project uses CSS custom properties (variables) for all dynamic styling valu
 ### Typography
 
 #### Font Families
+
 ```css
 --font-family-base
 --font-family-mono
 ```
 
 #### Font Sizes
+
 ```css
 --font-size-xs    /* 0.75rem (12px) */
 --font-size-sm    /* 0.875rem (14px) */
@@ -70,6 +74,7 @@ This project uses CSS custom properties (variables) for all dynamic styling valu
 ```
 
 #### Font Weights
+
 ```css
 --font-weight-light     /* 300 */
 --font-weight-normal    /* 400 */
@@ -79,6 +84,7 @@ This project uses CSS custom properties (variables) for all dynamic styling valu
 ```
 
 #### Line Heights
+
 ```css
 --line-height-tight    /* 1.25 */
 --line-height-normal   /* 1.5 */
@@ -176,7 +182,7 @@ This project uses CSS custom properties (variables) for all dynamic styling valu
   padding: var(--spacing-md);
   font-size: var(--font-size-base);
   border-radius: var(--radius-md);
-  
+
   // ❌ Bad - Uses SCSS variables
   color: $text-color;
   padding: $spacing-md;
@@ -217,11 +223,11 @@ function MyComponent() {
 ```scss
 .responsive-text {
   font-size: var(--font-size-base);
-  
+
   @media (min-width: 768px) {
     font-size: var(--font-size-lg);
   }
-  
+
   @media (min-width: 1024px) {
     font-size: var(--font-size-xl);
   }
@@ -236,7 +242,7 @@ function MyComponent() {
   color: var(--color-text);
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-md-theme);
-  
+
   &:hover {
     box-shadow: var(--shadow-lg-theme);
   }
@@ -246,6 +252,7 @@ function MyComponent() {
 ## Best Practices
 
 ### 1. Always Use Semantic Names
+
 ```scss
 // ✅ Good - Semantic, theme-aware
 background: var(--color-background);
@@ -257,6 +264,7 @@ color: black;
 ```
 
 ### 2. Use Calc with Variables
+
 ```scss
 // Dynamic calculations
 .double-spacing {
@@ -269,16 +277,17 @@ color: black;
 ```
 
 ### 3. Component-Specific Variables
+
 ```scss
 .my-component {
   // Define local CSS variables
   --component-gap: var(--spacing-md);
   --component-radius: var(--radius-lg);
-  
+
   // Use them
   gap: var(--component-gap);
   border-radius: var(--component-radius);
-  
+
   // Easy to override
   &.compact {
     --component-gap: var(--spacing-sm);
@@ -287,6 +296,7 @@ color: black;
 ```
 
 ### 4. Avoid SCSS Variables for Dynamic Values
+
 ```scss
 // ❌ Bad - SCSS variable (compile-time)
 $primary: #3880ff;
@@ -303,6 +313,7 @@ $primary: #3880ff;
 ## Exceptions
 
 ### Media Queries
+
 CSS variables cannot be used in media queries, so breakpoints remain as SCSS variables:
 
 ```scss
@@ -313,6 +324,7 @@ CSS variables cannot be used in media queries, so breakpoints remain as SCSS var
 ```
 
 ### SCSS Functions
+
 When using SCSS functions that require static values:
 
 ```scss
@@ -335,20 +347,24 @@ If you're updating old code:
 ## Tools & Debugging
 
 ### Browser DevTools
+
 1. Inspect element
 2. Look for CSS variables in computed styles
 3. Modify values live in the browser
 4. Changes apply instantly to all elements using that variable
 
 ### VS Code IntelliSense
+
 The project is configured to provide autocomplete for CSS variables:
+
 - Type `var(--` to see all available variables
 - Hover over variables to see their values
 
 ### Theme Testing
+
 ```javascript
 // Quick theme test in console
-document.documentElement.setAttribute('data-theme', 'dark');
-document.documentElement.setAttribute('data-theme', 'light');
-document.documentElement.setAttribute('data-theme', 'high-contrast');
+document.documentElement.setAttribute('data-theme', 'dark')
+document.documentElement.setAttribute('data-theme', 'light')
+document.documentElement.setAttribute('data-theme', 'high-contrast')
 ```

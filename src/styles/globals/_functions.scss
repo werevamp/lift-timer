@@ -1,6 +1,6 @@
 // SCSS Functions for Unit Conversion
-@use 'sass:math';
-@use 'sass:meta';
+@use "sass:math";
+@use "sass:meta";
 
 // Base font size for rem calculations
 $base-font-size: 16px !default;
@@ -9,25 +9,25 @@ $base-font-size: 16px !default;
 // Usage: font-size: rem(24); // outputs 1.5rem
 // Also accepts: rem(24px) for backwards compatibility
 @function rem($value) {
-  @if meta.type-of($value) != 'number' {
+  @if meta.type-of($value) != "number" {
     @error 'rem() function expects a number value';
   }
-  
+
   // If already in rem, return as-is
-  @if math.unit($value) == 'rem' {
+  @if math.unit($value) == "rem" {
     @return $value;
   }
-  
+
   // If unitless number, treat as pixels
   @if math.is-unitless($value) {
     @return math.div($value, 16) * 1rem;
   }
-  
+
   // If has px unit, convert normally
-  @if math.unit($value) == 'px' {
+  @if math.unit($value) == "px" {
     @return math.div($value, $base-font-size) * 1rem;
   }
-  
+
   @error 'rem() function expects a unitless number or value in px';
 }
 
@@ -35,53 +35,53 @@ $base-font-size: 16px !default;
 // Usage: padding: em(16); // outputs 1em
 // Also accepts: em(16px) for backwards compatibility
 @function em($value, $context: $base-font-size) {
-  @if meta.type-of($value) != 'number' {
+  @if meta.type-of($value) != "number" {
     @error 'em() function expects a number value';
   }
-  
+
   // If already in em, return as-is
-  @if math.unit($value) == 'em' {
+  @if math.unit($value) == "em" {
     @return $value;
   }
-  
+
   // If unitless number, treat as pixels
   @if math.is-unitless($value) {
     @return math.div($value, strip-unit($context)) * 1em;
   }
-  
+
   // If has px unit, convert normally
-  @if math.unit($value) == 'px' {
+  @if math.unit($value) == "px" {
     @return math.div($value, $context) * 1em;
   }
-  
+
   @error 'em() function expects a unitless number or value in px';
 }
 
 // Strip unit from a value
 // Usage: strip-unit(16px) // outputs 16
 @function strip-unit($value) {
-  @if meta.type-of($value) != 'number' {
+  @if meta.type-of($value) != "number" {
     @error 'strip-unit() function expects a number value';
   }
-  
+
   @return math.div($value, ($value * 0 + 1));
 }
 
 // Convert any value to pixels (for calculations)
 // Usage: to-px(1.5rem) // outputs 24px
 @function to-px($value) {
-  @if math.unit($value) == 'px' {
+  @if math.unit($value) == "px" {
     @return $value;
   }
-  
-  @if math.unit($value) == 'rem' {
+
+  @if math.unit($value) == "rem" {
     @return strip-unit($value) * $base-font-size;
   }
-  
-  @if math.unit($value) == 'em' {
+
+  @if math.unit($value) == "em" {
     @return strip-unit($value) * $base-font-size;
   }
-  
+
   @error 'to-px() only supports px, rem, and em units';
 }
 
@@ -92,10 +92,13 @@ $base-font-size: 16px !default;
   $max-size-rem: rem($max-size);
   $min-width-rem: rem($min-width);
   $max-width-rem: rem($max-width);
-  
+
   @return clamp(
     #{$min-size-rem},
-    calc(#{$min-size-rem} + #{strip-unit($max-size-rem - $min-size-rem)} * ((100vw - #{$min-width}) / #{strip-unit($max-width - $min-width)})),
+    calc(
+      #{$min-size-rem} + #{strip-unit($max-size-rem - $min-size-rem)} *
+        ((100vw - #{$min-width}) / #{strip-unit($max-width - $min-width)})
+    ),
     #{$max-size-rem}
   );
 }

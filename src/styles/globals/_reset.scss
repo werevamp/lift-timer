@@ -18,12 +18,12 @@
 html {
   font-size: 100%; // 16px base, respects user preferences
   height: 100%;
-  
+
   // Responsive font sizing for better mobile experience
   @media screen and (max-width: 768px) {
     font-size: 93.75%; // 15px base on mobile
   }
-  
+
   @media screen and (min-width: 1920px) {
     font-size: 106.25%; // 17px base on large screens
   }

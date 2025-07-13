@@ -108,6 +108,7 @@ function TimerPage() {
 ### Import Conventions
 
 #### TypeScript/JavaScript Files
+
 Use absolute imports for better maintainability:
 
 ```tsx
@@ -122,6 +123,7 @@ import styles from './timer.module.scss'
 ```
 
 #### SCSS Files
+
 Use absolute paths for global styles:
 
 ```scss
@@ -134,6 +136,7 @@ Use absolute paths for global styles:
 ```
 
 #### When to Use Relative Imports
+
 - Files within the same directory or component
 - Private/internal files that shouldn't be accessed from outside
 - Component-specific styles or utilities

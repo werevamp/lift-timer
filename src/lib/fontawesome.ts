@@ -39,4 +39,3 @@ library.add(
 
 // Export for convenience
 export { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-

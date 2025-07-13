@@ -96,10 +96,13 @@ src/
 ## 🎯 Key Principles
 
 ### 1. **Feature-First Architecture**
+
 Business logic is organized by feature in the `/features` directory. Each feature is self-contained with its own components, hooks, API calls, and utilities.
 
 ### 2. **Thin Routes**
+
 Route files in `/routes` should be minimal, focusing only on:
+
 - Route configuration
 - Data loading
 - Composing components from features
@@ -121,6 +124,7 @@ export function Route() {
 ```
 
 ### 3. **Unidirectional Dependencies**
+
 Follow this import hierarchy to maintain clean architecture:
 
 ```
@@ -139,6 +143,7 @@ See [Import Conventions Guide](./import-conventions.md) for detailed import guid
 ## 📁 Directory Guidelines
 
 ### `/features`
+
 Each feature should be self-contained:
 
 ```
@@ -162,6 +167,7 @@ features/timer/
 ```
 
 ### `/routes`
+
 Routes should remain thin and focused on routing concerns:
 
 ```tsx
@@ -178,6 +184,7 @@ function TimerPage() {
 ```
 
 ### `/components`
+
 Only truly reusable components belong here:
 
 ```
@@ -194,6 +201,7 @@ components/ui/button/
 ### Current Structure → Bulletproof Structure
 
 1. **Move timer logic from routes to features:**
+
    ```bash
    # Current
    src/routes/timer/
@@ -214,6 +222,7 @@ components/ui/button/
    ```
 
 2. **Extract shared components:**
+
    ```bash
    # Move TimerButton to shared UI components
    src/components/ui/timer-button/
@@ -228,6 +237,7 @@ components/ui/button/
 Here's how to structure a new feature following this architecture:
 
 ### Step 1: Create the feature
+
 ```bash
 src/features/workouts/
 ├── api/
@@ -241,6 +251,7 @@ src/features/workouts/
 ```
 
 ### Step 2: Create the route
+
 ```tsx
 // src/routes/workouts/index.tsx
 import { createFileRoute } from '@tanstack/react-router'
@@ -255,6 +266,7 @@ function WorkoutsPage() {
 ```
 
 ### Step 3: Export from feature
+
 ```tsx
 // src/features/workouts/index.ts
 export { WorkoutsView } from './components/workouts-view'

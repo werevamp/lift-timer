@@ -8,7 +8,7 @@ import { z } from 'zod'
 // Search params schema
 const searchSchema = z.object({
   session: z.string().optional(),
-  returnUrl: z.string().optional()
+  returnUrl: z.string().optional(),
 })
 
 export default function TimerBuilderView() {
@@ -21,7 +21,7 @@ export default function TimerBuilderView() {
     // Add ID to timer
     const timerWithId: Timer = {
       ...timer,
-      id: crypto.randomUUID()
+      id: crypto.randomUUID(),
     }
 
     if (sessionId && currentSession) {
@@ -35,7 +35,7 @@ export default function TimerBuilderView() {
         navigate({
           to: '/timer/session/$sessionId',
           params: { sessionId },
-          search: { index: currentSession.currentTimerIndex }
+          search: { index: currentSession.currentTimerIndex },
         })
       }
     } else {
@@ -47,9 +47,7 @@ export default function TimerBuilderView() {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>
-        {sessionId ? 'Add Timer to Workout' : 'Create Timer'}
-      </h1>
+      <h1 className={styles.title}>{sessionId ? 'Add Timer to Workout' : 'Create Timer'}</h1>
       <TimerBuilder onSubmit={handleTimerSubmit} />
     </div>
   )

@@ -39,7 +39,7 @@ export function ThemeProvider({
   // Detect system theme preference
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    
+
     const handleChange = (e: MediaQueryListEvent | MediaQueryList) => {
       setSystemTheme(e.matches ? 'dark' : 'light')
     }

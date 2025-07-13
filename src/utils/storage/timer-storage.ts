@@ -79,7 +79,7 @@ export const timerStorage = {
         const updatedSession = {
           ...session,
           ...updates,
-          updatedAt: Date.now()
+          updatedAt: Date.now(),
         }
         timerStorage.saveSession(updatedSession)
       }
@@ -157,10 +157,10 @@ export const timerStorage = {
   cleanupOrphanedTimers: (): void => {
     try {
       const sessions = timerStorage.getAllSessions()
-      const allTimerIds = new Set(sessions.flatMap(s => s.timerIds))
+      const allTimerIds = new Set(sessions.flatMap((s) => s.timerIds))
       const timers = timerStorage.getAllTimers()
 
-      timers.forEach(timer => {
+      timers.forEach((timer) => {
         if (!allTimerIds.has(timer.id)) {
           timerStorage.deleteTimer(timer.id)
         }
@@ -168,5 +168,5 @@ export const timerStorage = {
     } catch (error) {
       console.error('Failed to cleanup orphaned timers:', error)
     }
-  }
+  },
 }

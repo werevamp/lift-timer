@@ -5,10 +5,7 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    TanStackRouterVite(),
-    react()
-  ],
+  plugins: [TanStackRouterVite(), react()],
   server: {
     host: true, // This enables network access
     port: 5173, // Default Vite port
@@ -19,8 +16,8 @@ export default defineConfig({
       '@fortawesome/free-solid-svg-icons',
       '@fortawesome/free-regular-svg-icons',
       '@fortawesome/free-brands-svg-icons',
-      '@fortawesome/react-fontawesome'
-    ]
+      '@fortawesome/react-fontawesome',
+    ],
   },
   resolve: {
     alias: {
@@ -30,7 +27,7 @@ export default defineConfig({
   },
   css: {
     modules: {
-      localsConvention: 'camelCase'
+      localsConvention: 'camelCase',
     },
     preprocessorOptions: {
       scss: {

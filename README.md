@@ -7,6 +7,7 @@ Test a commit!
 ## Prerequisites
 
 Before running the iOS app, make sure you have:
+
 - Node.js (v14 or higher)
 - npm or yarn
 - Xcode (latest version from Mac App Store)
@@ -15,6 +16,7 @@ Before running the iOS app, make sure you have:
 ## Installation
 
 1. Install dependencies:
+
 ```bash
 npm install
 ```
@@ -24,22 +26,27 @@ npm install
 Follow these steps to run the app on the iOS simulator:
 
 ### 1. Build the web assets
+
 ```bash
 npm run build
 ```
 
 ### 2. Sync with Capacitor
+
 ```bash
 npx cap sync ios
 ```
 
 ### 3. Open in Xcode
+
 ```bash
 npx cap open ios
 ```
 
 ### 4. Run in Simulator
+
 Once Xcode opens:
+
 1. Wait for Xcode to finish indexing (progress bar at the top)
 2. Select a simulator device from the device dropdown (next to the "App" scheme at the top)
    - Recommended: iPhone 15 or iPhone 15 Pro
@@ -51,16 +58,19 @@ Once Xcode opens:
 For active development with hot reload:
 
 1. Start the development server:
+
 ```bash
 npm run dev
 ```
 
 2. In a new terminal, run the app with live reload:
+
 ```bash
 npx cap run ios --livereload --external
 ```
 
 This will:
+
 - Open Xcode
 - Build and run the app on the simulator
 - Automatically reload when you make changes to the code
@@ -68,14 +78,18 @@ This will:
 ## Troubleshooting
 
 ### Build Errors
+
 If you encounter build errors:
+
 1. In Xcode: Product → Clean Build Folder (⇧⌘K)
 2. Close Xcode
 3. Run `npx cap sync ios` again
 4. Open Xcode and try building again
 
 ### CocoaPods Issues
+
 If you have pod-related errors:
+
 ```bash
 cd ios/App
 pod install --repo-update
@@ -84,14 +98,16 @@ npx cap sync ios
 ```
 
 ### Simulator Not Showing
+
 If the simulator doesn't appear:
+
 1. Open Simulator manually: Xcode → Open Developer Tool → Simulator
 2. In Simulator: Device → iOS Simulators → Choose a device
 3. Run the app again from Xcode
 
 ## Documentation
 
-This project follows an adapted version of the [Bulletproof React](https://github.com/alan2207/bulletproof-react) architecture. 
+This project follows an adapted version of the [Bulletproof React](https://github.com/alan2207/bulletproof-react) architecture.
 
 ### 📚 Available Documentation
 
@@ -122,6 +138,7 @@ This project uses SCSS with a modern approach:
 - **Runtime Theming**: CSS variables enable dynamic theme switching without recompilation
 
 Example:
+
 ```scss
 // In component SCSS files
 @use '@styles/globals' as *;
@@ -151,16 +168,19 @@ For detailed import conventions, see the [Import Conventions Guide](./docs/impor
 To run the app on iPhone 16 Pro with auto-reload:
 
 1. Make sure the dev server is running in one terminal:
+
 ```bash
 npm run dev
 ```
 
 2. In another terminal, run:
+
 ```bash
 npm run ios:dev
 ```
 
 This will automatically:
+
 - Build the app
 - Launch it on iPhone 16 Pro simulator
 - Enable live reload for instant updates when you save changes

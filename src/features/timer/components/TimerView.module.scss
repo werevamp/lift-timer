@@ -1,4 +1,4 @@
-@use '@styles/globals' as *;
+@use "@styles/globals" as *;
 
 .timerDisplay {
   font-size: var(--font-size-4xl);
@@ -6,7 +6,7 @@
   color: var(--color-primary);
   font-family: var(--font-family-mono);
   margin-bottom: var(--spacing-xl);
-  
+
   @include md {
     font-size: calc(var(--font-size-4xl) * 1.5);
   }
@@ -15,7 +15,7 @@
 .buttonGroup {
   @include flex-center;
   gap: var(--spacing-md);
-  
+
   ion-button {
     min-width: rem(100px);
   }

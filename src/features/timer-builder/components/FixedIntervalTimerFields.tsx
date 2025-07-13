@@ -24,13 +24,7 @@ export function FixedIntervalTimerFields({ register, errors }: FixedIntervalTime
         error={errors.restTime?.message}
       />
       <FormField label="Rounds" error={errors.rounds?.message}>
-        <input
-          type="number"
-          min="1"
-          max="99"
-          {...register('rounds')}
-          className={styles.input}
-        />
+        <input type="number" min="1" max="99" {...register('rounds')} className={styles.input} />
       </FormField>
     </>
   )

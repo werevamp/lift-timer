@@ -1,4 +1,4 @@
-@use '@styles/globals' as *;
+@use "@styles/globals" as *;
 
 .theme-switcher {
   $border: 1px solid var(--color-border);
@@ -24,7 +24,7 @@
     border-right: 0;
   }
 
-  input[type='radio'] {
+  input[type="radio"] {
     display: none;
 
     &:checked + label {
@@ -32,4 +32,3 @@
     }
   }
 }
-

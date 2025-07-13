@@ -1,18 +1,17 @@
 // Theme System Base
 // This file handles theme application and switching logic
 
-@use './css-properties';
+@use "./css-properties";
 
 // ===========================================
 // Theme application mixin
 // ===========================================
 
 @mixin apply-theme($theme-name) {
-  [data-theme='#{$theme-name}'] {
+  [data-theme="#{$theme-name}"] {
     @content;
   }
 }
-
 
 // ===========================================
 // Theme-aware components
@@ -31,7 +30,7 @@
 ::-webkit-scrollbar-thumb {
   background: var(--color-border);
   border-radius: var(--radius-md);
-  
+
   &:hover {
     background: var(--color-border-light);
   }
@@ -115,7 +114,7 @@
   .theme-container {
     container-type: inline-size;
   }
-  
+
   // Components can respond to container queries
   @container (min-width: 400px) {
     .responsive-component {
@@ -135,7 +134,7 @@
     --color-text: black;
     --color-border: #ccc;
   }
-  
+
   * {
     background: transparent !important;
     color: black !important;

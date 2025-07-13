@@ -16,7 +16,7 @@ ALTER TABLE workout_rooms ENABLE ROW LEVEL SECURITY;
 -- Create a policy that allows anyone to perform all operations
 -- (For demo purposes - you may want to restrict this later)
 CREATE POLICY "Public access for workout_rooms" ON workout_rooms
-  FOR ALL 
+  FOR ALL
   USING (true)
   WITH CHECK (true);
 ```
@@ -34,7 +34,6 @@ CREATE POLICY "Public access for workout_rooms" ON workout_rooms
   - `id`: Auto-generated unique identifier
   - `name`: The name of the workout room
   - `created_at`: Timestamp when the room was created
-  
 - **Security**: Row Level Security is enabled with a permissive policy allowing public access to create, read, update, and delete workout rooms
 
 ## Notes

@@ -17,9 +17,9 @@ import { TimerView } from '@/features/timer'
 import type { User } from '@/types/user'
 
 // ✅ Good: Relative imports for local files only
-import { TimerDisplay } from './TimerDisplay'  // Same directory
-import styles from './timer.module.scss'       // Component-specific styles
-import { helperFunction } from './helpers'     // Local utilities
+import { TimerDisplay } from './TimerDisplay' // Same directory
+import styles from './timer.module.scss' // Component-specific styles
+import { helperFunction } from './helpers' // Local utilities
 ```
 
 ### SCSS Files
@@ -34,13 +34,14 @@ We use absolute paths with the `@styles` alias for global styles:
 @use '@styles/globals/functions' as fn;
 
 // ✅ Good: Relative imports for component-local styles
-@import './timer-animations';     // Component-specific animations
-@import './local-overrides';      // Local style overrides
+@import './timer-animations'; // Component-specific animations
+@import './local-overrides'; // Local style overrides
 ```
 
 ## 🎯 When to Use Each Import Type
 
 ### Use Absolute Imports (`@/...`) When:
+
 - Importing from a different feature or module
 - Importing shared components, hooks, or utilities
 - Importing from any directory that's not the current one
@@ -48,6 +49,7 @@ We use absolute paths with the `@styles` alias for global styles:
 - You want to make the import path stable during refactoring
 
 ### Use Relative Imports (`./...`) When:
+
 - Importing files within the same directory
 - Importing component-specific files (styles, tests, sub-components)
 - The files are tightly coupled and always move together
@@ -105,10 +107,11 @@ export default defineConfig({
 ## 📋 Examples by File Type
 
 ### Route Files
+
 ```tsx
 // src/routes/timer/index.tsx
 import { createFileRoute } from '@tanstack/react-router'
-import { TimerView } from '@/features/timer'  // Absolute import
+import { TimerView } from '@/features/timer' // Absolute import
 
 export const Route = createFileRoute('/timer/')({
   component: TimerPage,
@@ -120,24 +123,26 @@ function TimerPage() {
 ```
 
 ### Feature Components
+
 ```tsx
 // src/features/timer/components/timer-view.tsx
 import { IonButton, IonCard } from '@ionic/react'
-import { useTimer } from '@/hooks/useTimer'              // Absolute: shared hook
-import { formatTime } from '@/utils/time'              // Absolute: shared utility
-import { Button } from '@/components/ui/button'        // Absolute: shared component
-import { TimerDisplay } from './TimerDisplay'          // Relative: local component
-import { TimerControls } from './TimerControls'        // Relative: local component
-import styles from './timer-view.module.scss'          // Relative: component styles
+import { useTimer } from '@/hooks/useTimer' // Absolute: shared hook
+import { formatTime } from '@/utils/time' // Absolute: shared utility
+import { Button } from '@/components/ui/button' // Absolute: shared component
+import { TimerDisplay } from './TimerDisplay' // Relative: local component
+import { TimerControls } from './TimerControls' // Relative: local component
+import styles from './timer-view.module.scss' // Relative: component styles
 ```
 
 ### SCSS Modules
+
 ```scss
 // src/features/timer/components/timer-view.module.scss
-@use '@styles/globals' as *;                          // Absolute: global styles
-@use '@styles/globals/variables' as vars;             // Absolute: specific variables
+@use '@styles/globals' as *; // Absolute: global styles
+@use '@styles/globals/variables' as vars; // Absolute: specific variables
 
-@import './timer-animations';                          // Relative: local animations
+@import './timer-animations'; // Relative: local animations
 
 .timer {
   @include card($spacing-lg, $radius-lg);
@@ -146,12 +151,13 @@ import styles from './timer-view.module.scss'          // Relative: component st
 ```
 
 ### Shared Components
+
 ```tsx
 // src/components/ui/button/button.tsx
 import { forwardRef } from 'react'
-import { cn } from '@/utils/cn'                        // Absolute: shared utility
-import type { ButtonProps } from '@/types/components'  // Absolute: shared types
-import styles from './button.module.scss'              // Relative: component styles
+import { cn } from '@/utils/cn' // Absolute: shared utility
+import type { ButtonProps } from '@/types/components' // Absolute: shared types
+import styles from './button.module.scss' // Relative: component styles
 ```
 
 ## ❌ Common Mistakes to Avoid
@@ -170,8 +176,8 @@ import { helpers } from '@/features/timer/components/timer-view/helpers'
 import { helpers } from './helpers'
 
 // ❌ Bad: Mixing import styles in the same file
-import { Button } from '../../../components/ui/button'  // Relative
-import { useAuth } from '@/hooks/useAuth'              // Absolute
+import { Button } from '../../../components/ui/button' // Relative
+import { useAuth } from '@/hooks/useAuth' // Absolute
 
 // ✅ Good: Consistent use of absolute imports
 import { Button } from '@/components/ui/button'
@@ -197,6 +203,7 @@ When updating existing code to use absolute imports:
 5. Keep local imports (same directory) as relative
 
 Example migration:
+
 ```tsx
 // Before
 import { Button } from '../../../components/ui/button'
@@ -204,7 +211,7 @@ import { formatTime } from '../../utils/time'
 import { TimerDisplay } from './TimerDisplay'
 
 // After
-import { Button } from '@/components/ui/button'        // Changed to absolute
-import { formatTime } from '@/utils/time'              // Changed to absolute
-import { TimerDisplay } from './TimerDisplay'          // Kept as relative (local file)
+import { Button } from '@/components/ui/button' // Changed to absolute
+import { formatTime } from '@/utils/time' // Changed to absolute
+import { TimerDisplay } from './TimerDisplay' // Kept as relative (local file)
 ```

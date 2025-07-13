@@ -1,6 +1,6 @@
 // Responsive Breakpoint Mixins
-@use 'sass:color';
-@use './variables' as *;
+@use "sass:color";
+@use "./variables" as *;
 
 @mixin xs {
   @media (min-width: #{$breakpoint-xs}) {
@@ -84,4 +84,3 @@
 @mixin transition($properties: all, $duration: 0.3s, $easing: ease) {
   transition: $properties $duration $easing;
 }
-

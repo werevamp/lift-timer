@@ -14,6 +14,7 @@ LiftTimer uses a hybrid theme system that combines multiple modern CSS features 
 ### 1. Theme Detection Priority
 
 The theme is determined in this order:
+
 1. Explicit `data-theme` attribute on root element (highest priority)
 2. System preference via `prefers-color-scheme` (if no data-theme)
 3. Default to light theme
@@ -25,7 +26,7 @@ The theme is determined in this order:
 :root {
   --theme: light;
   color-scheme: light;
-  
+
   @media (prefers-color-scheme: dark) {
     --theme: dark;
     color-scheme: dark;
@@ -43,10 +44,11 @@ The theme is determined in this order:
 ### 3. Usage Examples
 
 #### Basic Theme-Aware Component
+
 ```scss
 .card {
   background: var(--color-surface);
-  
+
   @container style(--theme: dark) {
     box-shadow: var(--shadow-sm-theme);
   }
@@ -54,16 +56,16 @@ The theme is determined in this order:
 ```
 
 #### JavaScript Theme Switching
+
 ```javascript
 // Set theme explicitly
-document.documentElement.setAttribute('data-theme', 'dark');
+document.documentElement.setAttribute('data-theme', 'dark')
 
 // Follow system preference
-document.documentElement.removeAttribute('data-theme');
+document.documentElement.removeAttribute('data-theme')
 
 // Get current theme
-const theme = getComputedStyle(document.documentElement)
-  .getPropertyValue('--theme').trim();
+const theme = getComputedStyle(document.documentElement).getPropertyValue('--theme').trim()
 ```
 
 ### 4. Utility Classes
@@ -77,6 +79,7 @@ const theme = getComputedStyle(document.documentElement)
 ### 5. Browser Compatibility
 
 The system includes automatic fallbacks:
+
 - **Modern browsers**: Full container query support
 - **Older browsers**: Falls back to attribute selectors and media queries
 - **All browsers**: Support basic theme switching
@@ -86,7 +89,7 @@ The system includes automatic fallbacks:
 Add the `theme-transition` class to `<html>` for smooth theme changes:
 
 ```javascript
-document.documentElement.classList.add('theme-transition');
+document.documentElement.classList.add('theme-transition')
 ```
 
 ### 7. Custom Theme Variables
@@ -96,7 +99,7 @@ You can create adaptive variables that change with the theme:
 ```scss
 :root {
   --my-adaptive-color: #000;
-  
+
   @container style(--theme: dark) {
     --my-adaptive-color: #fff;
   }

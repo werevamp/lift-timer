@@ -28,7 +28,7 @@ export function TimerView({
   onNextTimer,
   onPreviousTimer,
   onAddTimer,
-  onComplete
+  onComplete,
 }: TimerViewProps) {
   // TODO: Implement timer display and controls
   // This is a placeholder for your teammate to implement the actual timer UI
@@ -77,17 +77,11 @@ export function TimerView({
           <button onClick={onPreviousTimer}>Previous Timer</button>
         )}
 
-        {session?.hasNext && onNextTimer && (
-          <button onClick={onNextTimer}>Next Timer</button>
-        )}
+        {session?.hasNext && onNextTimer && <button onClick={onNextTimer}>Next Timer</button>}
 
-        {onAddTimer && (
-          <button onClick={onAddTimer}>Add Timer</button>
-        )}
+        {onAddTimer && <button onClick={onAddTimer}>Add Timer</button>}
 
-        {onComplete && (
-          <button onClick={onComplete}>Complete</button>
-        )}
+        {onComplete && <button onClick={onComplete}>Complete</button>}
       </div>
 
       {/* TODO: Implement actual timer countdown/interval logic here */}
@@ -97,4 +91,3 @@ export function TimerView({
     </div>
   )
 }
-

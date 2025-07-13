@@ -5,11 +5,13 @@ This document explains the timer data flow architecture for the LiftTimer applic
 ## Overview
 
 The timer system uses a **hybrid approach** combining:
+
 - **React Context** for active timer state management
 - **localStorage** for data persistence
 - **URL routing** for navigation and sharing
 
 This architecture ensures:
+
 - Timers continue running during navigation
 - Data persists across browser refreshes
 - Workouts can be shared via URLs
@@ -210,12 +212,14 @@ function TimerView({ timer, session, onNextTimer, onAddTimer }: TimerViewProps) 
 ### 3. Timer State Management
 
 The Timer page should focus on:
+
 - Displaying the timer configuration
 - Managing countdown/interval logic
 - Showing appropriate controls
 - Calling navigation callbacks
 
 The Context handles:
+
 - Persisting timer state
 - Navigation between timers
 - Session management
@@ -240,16 +244,19 @@ if (timer.type === 'fixed-interval') {
 ## URL Structure
 
 ### Single Timer (Future)
+
 ```
 /timer/{timerId}
 ```
 
 ### Timer in Session
+
 ```
 /timer/session/{sessionId}?index={currentIndex}
 ```
 
 ### Timer Builder with Context
+
 ```
 /timer-builder?session={sessionId}&returnUrl={encodedUrl}
 ```
@@ -274,14 +281,15 @@ if (timer.type === 'fixed-interval') {
 ### For Timer Page Development
 
 1. **Test with mock data**:
+
    ```tsx
    const mockTimer: Timer = {
      id: 'test-123',
      type: 'standard',
      name: 'Test Timer',
      settings: {
-       duration: { minutes: 5, seconds: 0 }
-     }
+       duration: { minutes: 5, seconds: 0 },
+     },
    }
    ```
 

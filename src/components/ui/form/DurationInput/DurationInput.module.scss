@@ -1,4 +1,4 @@
-@use '@styles/globals' as *;
+@use "@styles/globals" as *;
 
 .durationInput {
   display: flex;
@@ -49,4 +49,3 @@
   color: var(--color-error);
   font-size: rem(14);
 }
-

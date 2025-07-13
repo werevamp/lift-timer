@@ -2,28 +2,28 @@
 // Forward all global partials in the correct order
 
 // 1. Functions (must come first for conversions)
-@forward './functions';
+@forward "./functions";
 
 // 2. CSS Custom Properties (design tokens)
-@forward './css-properties';
+@forward "./css-properties";
 
 // 3. Theme System (theme application logic)
-@forward './theme-system';
+@forward "./theme-system";
 
 // 4. Reset (sets base font size)
-@forward './reset';
+@forward "./reset";
 
 // 5. Variables (uses functions for rem values)
-@forward './variables';
+@forward "./variables";
 
 // 6. Mixins (depends on variables)
-@forward './mixins';
+@forward "./mixins";
 
 // 7. Typography (uses variables and mixins)
-@forward './typography';
+@forward "./typography";
 
 // 8. App Base (core application styles)
-@forward './app-base';
+@forward "./app-base";
 
 // 9. Theme Controller (handles theme switching logic)
-@forward './theme-controller';
+@forward "./theme-controller";

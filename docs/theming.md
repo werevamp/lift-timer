@@ -5,6 +5,7 @@ This project implements a robust, future-proof theming system that supports infi
 ## Overview
 
 The theming system is built on:
+
 - **CSS Custom Properties**: For instant theme switching without JavaScript
 - **HSL Color System**: For flexible color manipulation
 - **Semantic Tokens**: For consistent theming across components
@@ -13,6 +14,7 @@ The theming system is built on:
 ## Available Themes
 
 ### Built-in Themes
+
 1. **Light** - Default bright theme with excellent readability
 2. **Dark** - Dark theme optimized for low-light environments
 3. **High Contrast** - Accessibility-focused theme with maximum contrast
@@ -24,25 +26,23 @@ The theming system is built on:
 ### Basic Usage
 
 ```tsx
-import { useTheme } from '@/features/theme';
+import { useTheme } from '@/features/theme'
 
 function MyComponent() {
-  const { theme, setTheme, toggleTheme, isDark } = useTheme();
-  
+  const { theme, setTheme, toggleTheme, isDark } = useTheme()
+
   return (
     <div>
-      <button onClick={toggleTheme}>
-        Switch to {isDark ? 'Light' : 'Dark'} Mode
-      </button>
+      <button onClick={toggleTheme}>Switch to {isDark ? 'Light' : 'Dark'} Mode</button>
     </div>
-  );
+  )
 }
 ```
 
 ### Theme Switcher Component
 
 ```tsx
-import { ThemeSwitcher } from '@/features/theme';
+import { ThemeSwitcher } from '@/features/theme'
 
 function Header() {
   return (
@@ -50,7 +50,7 @@ function Header() {
       <h1>My App</h1>
       <ThemeSwitcher />
     </header>
-  );
+  )
 }
 ```
 
@@ -112,7 +112,7 @@ Create a new file in `src/styles/themes/_my-theme.scss`:
   --color-primary-h: 280;
   --color-primary-s: 100%;
   --color-primary-l: 60%;
-  
+
   --color-background: hsl(280, 20%, 95%);
   --color-text: hsl(280, 100%, 10%);
   // ... etc
@@ -120,6 +120,7 @@ Create a new file in `src/styles/themes/_my-theme.scss`:
 ```
 
 Then import it in `src/index.scss`:
+
 ```scss
 @use '@styles/themes/my-theme';
 ```
@@ -127,11 +128,11 @@ Then import it in `src/index.scss`:
 ### Method 2: Runtime Theme Registration
 
 ```tsx
-import { useTheme } from '@/features/theme';
+import { useTheme } from '@/features/theme'
 
 function ThemeCustomizer() {
-  const { registerTheme } = useTheme();
-  
+  const { registerTheme } = useTheme()
+
   const addPurpleTheme = () => {
     registerTheme({
       name: 'purple',
@@ -142,9 +143,9 @@ function ThemeCustomizer() {
         primarySaturation: '100%',
         primaryLightness: '60%',
         // ... other color definitions
-      }
-    });
-  };
+      },
+    })
+  }
 }
 ```
 
@@ -165,34 +166,36 @@ Use container queries for component-level theming:
 ### Theme-Aware Components
 
 ```tsx
-import { useThemeStyles } from '@/features/theme';
+import { useThemeStyles } from '@/features/theme'
 
 function ThemedButton() {
   const styles = useThemeStyles(
-    { backgroundColor: '#fff', color: '#000' },  // light styles
-    { backgroundColor: '#000', color: '#fff' }   // dark styles
-  );
-  
-  return <button style={styles}>Click me</button>;
+    { backgroundColor: '#fff', color: '#000' }, // light styles
+    { backgroundColor: '#000', color: '#fff' } // dark styles
+  )
+
+  return <button style={styles}>Click me</button>
 }
 ```
 
 ### Reading CSS Variables
 
 ```tsx
-import { useThemeVariable } from '@/features/theme';
+import { useThemeVariable } from '@/features/theme'
 
 function ColorDisplay() {
-  const primaryColor = useThemeVariable('color-primary');
-  
-  return <div>Primary color is: {primaryColor}</div>;
+  const primaryColor = useThemeVariable('color-primary')
+
+  return <div>Primary color is: {primaryColor}</div>
 }
 ```
 
 ## Best Practices
 
 ### 1. Use Semantic Tokens
+
 Always use semantic color tokens instead of specific colors:
+
 ```scss
 // ✅ Good
 color: var(--color-text);
@@ -204,20 +207,26 @@ background: white;
 ```
 
 ### 2. Respect User Preferences
+
 The system automatically detects:
+
 - `prefers-color-scheme` for dark mode
 - `prefers-contrast` for high contrast mode
 - `prefers-reduced-motion` for animations
 
 ### 3. Test All Themes
+
 Always test your components in:
+
 - Light mode
 - Dark mode
 - High contrast modes
 - With different font sizes
 
 ### 4. Maintain Contrast Ratios
+
 Ensure text meets WCAG guidelines:
+
 - Normal text: 4.5:1 contrast ratio
 - Large text: 3:1 contrast ratio
 - High contrast mode: 7:1 or higher
@@ -229,7 +238,7 @@ The system includes smooth transitions when switching themes:
 ```scss
 // Automatic transitions on theme change
 * {
-  transition: 
+  transition:
     background-color var(--transition-theme),
     border-color var(--transition-theme),
     color var(--transition-theme);
@@ -237,15 +246,15 @@ The system includes smooth transitions when switching themes:
 ```
 
 To disable transitions during theme switch:
+
 ```tsx
-<ThemeProvider disableTransitionOnChange>
-  {children}
-</ThemeProvider>
+<ThemeProvider disableTransitionOnChange>{children}</ThemeProvider>
 ```
 
 ## Accessibility
 
 ### High Contrast Support
+
 The system automatically applies high contrast themes when detected:
 
 ```scss
@@ -255,7 +264,9 @@ The system automatically applies high contrast themes when detected:
 ```
 
 ### Focus Styles
+
 Theme-aware focus rings adapt to each theme:
+
 ```scss
 :focus-visible {
   outline: var(--focus-ring-width) solid var(--focus-ring-color);
@@ -273,6 +284,7 @@ Theme-aware focus rings adapt to each theme:
 ## Future Enhancements
 
 The system is designed to support:
+
 - Gradient themes
 - Seasonal themes
 - User-created themes

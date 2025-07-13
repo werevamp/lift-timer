@@ -1,7 +1,7 @@
 // Light Theme Definition
 // Default theme with bright, clean colors
 
-@use '../globals/theme-system' as *;
+@use "../globals/theme-system" as *;
 
 // Light theme styles as a mixin for reuse
 @mixin light-theme-styles {
@@ -57,4 +57,3 @@
 }
 
 // Note: Theme application is now handled by _theme-controller.scss
-

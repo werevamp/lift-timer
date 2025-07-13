@@ -6,8 +6,10 @@ import { StandardTimer, FixedIntervalTimer, Duration } from '../types/timer.type
  */
 function toDuration(duration: { minutes: string | number; seconds: string | number }): Duration {
   return {
-    minutes: typeof duration.minutes === 'number' ? duration.minutes : parseInt(duration.minutes) || 0,
-    seconds: typeof duration.seconds === 'number' ? duration.seconds : parseInt(duration.seconds) || 0,
+    minutes:
+      typeof duration.minutes === 'number' ? duration.minutes : parseInt(duration.minutes) || 0,
+    seconds:
+      typeof duration.seconds === 'number' ? duration.seconds : parseInt(duration.seconds) || 0,
   }
 }
 

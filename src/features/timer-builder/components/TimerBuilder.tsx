@@ -45,9 +45,7 @@ export default function TimerBuilder({ onSubmit }: TimerBuilderProps) {
         </select>
       </FormField>
 
-      {selectedType === 'standard' && (
-        <StandardTimerFields register={register} errors={errors} />
-      )}
+      {selectedType === 'standard' && <StandardTimerFields register={register} errors={errors} />}
 
       {selectedType === 'fixed-interval' && (
         <FixedIntervalTimerFields register={register} errors={errors} />
@@ -59,4 +57,3 @@ export default function TimerBuilder({ onSubmit }: TimerBuilderProps) {
     </form>
   )
 }
-

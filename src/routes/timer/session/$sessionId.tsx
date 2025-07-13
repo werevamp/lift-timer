@@ -6,12 +6,12 @@ import { z } from 'zod'
 
 // Search params schema
 const searchSchema = z.object({
-  index: z.number().optional()
+  index: z.number().optional(),
 })
 
 export const Route = createFileRoute('/timer/session/$sessionId')({
   component: TimerSessionPage,
-  validateSearch: searchSchema
+  validateSearch: searchSchema,
 })
 
 function TimerSessionPage() {
@@ -19,14 +19,8 @@ function TimerSessionPage() {
   const { index = 0 } = Route.useSearch()
   const navigate = Route.useNavigate()
 
-  const {
-    currentSession,
-    activeTimer,
-    loadSession,
-    nextTimer,
-    previousTimer,
-    addTimerToSession
-  } = useTimerSession()
+  const { currentSession, activeTimer, loadSession, nextTimer, previousTimer, addTimerToSession } =
+    useTimerSession()
 
   // Load session on mount or when sessionId changes
   useEffect(() => {
@@ -40,8 +34,8 @@ function TimerSessionPage() {
       to: '/timer-builder',
       search: {
         session: sessionId,
-        returnUrl: encodeURIComponent(returnUrl)
-      }
+        returnUrl: encodeURIComponent(returnUrl),
+      },
     })
   }
 
@@ -68,12 +62,13 @@ function TimerSessionPage() {
       currentIndex: currentSession.currentTimerIndex,
       totalTimers: currentSession.timerIds.length,
       hasNext: currentSession.currentTimerIndex < currentSession.timerIds.length - 1,
-      hasPrevious: currentSession.currentTimerIndex > 0
+      hasPrevious: currentSession.currentTimerIndex > 0,
     },
-    onNextTimer: currentSession.currentTimerIndex < currentSession.timerIds.length - 1 ? nextTimer : undefined,
+    onNextTimer:
+      currentSession.currentTimerIndex < currentSession.timerIds.length - 1 ? nextTimer : undefined,
     onPreviousTimer: currentSession.currentTimerIndex > 0 ? previousTimer : undefined,
     onAddTimer: handleAddTimer,
-    onComplete: handleComplete
+    onComplete: handleComplete,
   }
 
   return <TimerView {...timerViewProps} />

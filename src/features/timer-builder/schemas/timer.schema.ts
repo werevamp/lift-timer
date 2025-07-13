@@ -28,14 +28,8 @@ export const timerSchema = z.discriminatedUnion('type', [
 
 // Duration schema for form inputs
 const formDurationSchema = z.object({
-  minutes: z.union([
-    z.string().transform((val) => parseInt(val, 10) || 0),
-    z.number(),
-  ]),
-  seconds: z.union([
-    z.string().transform((val) => parseInt(val, 10) || 0),
-    z.number(),
-  ]),
+  minutes: z.union([z.string().transform((val) => parseInt(val, 10) || 0), z.number()]),
+  seconds: z.union([z.string().transform((val) => parseInt(val, 10) || 0), z.number()]),
 })
 
 // Form schema for the timer builder
@@ -45,12 +39,7 @@ export const timerFormSchema = z
     duration: formDurationSchema.optional(),
     activeTime: formDurationSchema.optional(),
     restTime: formDurationSchema.optional(),
-    rounds: z
-      .union([
-        z.string().transform((val) => parseInt(val, 10) || 1),
-        z.number(),
-      ])
-      .optional(),
+    rounds: z.union([z.string().transform((val) => parseInt(val, 10) || 1), z.number()]).optional(),
   })
   .refine(
     (data) => {
@@ -59,16 +48,14 @@ export const timerFormSchema = z
       }
       if (data.type === 'fixed-interval') {
         return (
-          data.activeTime !== undefined &&
-          data.restTime !== undefined &&
-          data.rounds !== undefined
+          data.activeTime !== undefined && data.restTime !== undefined && data.rounds !== undefined
         )
       }
       return false
     },
     {
       message: 'Required fields are missing for the selected timer type',
-    },
+    }
   )
 
 export type TimerFormData = z.infer<typeof timerFormSchema>

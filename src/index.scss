@@ -3,10 +3,10 @@
 
 // Import all global styles (includes reset, variables, mixins, typography, themes, etc.)
 // The theme controller in globals now handles all theme imports and logic
-@use '@styles/globals' as globals;
+@use "@styles/globals" as globals;
 
 // Import Font Awesome CSS (must come after @use rules)
-@import '@fortawesome/fontawesome-svg-core/styles.css';
+@import "@fortawesome/fontawesome-svg-core/styles.css";
 
 // App layout styles
 .app-container {

@@ -1,9 +1,9 @@
 // Theme Controller
 // Manages theme switching logic and applies theme styles
 
-@use '../themes/light' as light-theme;
-@use '../themes/dark' as dark-theme;
-@use './theme-system' as *;
+@use "../themes/light" as light-theme;
+@use "../themes/dark" as dark-theme;
+@use "./theme-system" as *;
 
 // ===========================================
 // Theme Detection & Application
@@ -35,13 +35,13 @@
 // ===========================================
 
 // When user explicitly selects a theme, it overrides system preference
-[data-theme='light'] {
+[data-theme="light"] {
   --theme: light;
   color-scheme: light;
   @include light-theme.light-theme-styles;
 }
 
-[data-theme='dark'] {
+[data-theme="dark"] {
   --theme: dark;
   color-scheme: dark;
   @include dark-theme.dark-theme-styles;
@@ -144,12 +144,12 @@
 
 @supports not (container-type: style) {
   // Use attribute selectors as fallback
-  [data-theme='light'] body {
+  [data-theme="light"] body {
     background: var(--color-background);
     color: var(--color-text);
   }
 
-  [data-theme='dark'] body {
+  [data-theme="dark"] body {
     background: var(--color-background);
     color: var(--color-text);
   }
@@ -231,28 +231,28 @@ html.theme-transition * {
 
 // Fallback for older browsers
 @supports not (container-type: style) {
-  [data-theme='dark'] .show-on-dark,
+  [data-theme="dark"] .show-on-dark,
   :root:not([data-theme]) .show-on-dark {
     @media (prefers-color-scheme: dark) {
       display: initial;
     }
   }
 
-  [data-theme='light'] .show-on-light,
+  [data-theme="light"] .show-on-light,
   :root:not([data-theme]) .show-on-light {
     @media (prefers-color-scheme: light) {
       display: initial;
     }
   }
 
-  [data-theme='dark'] .hide-on-dark,
+  [data-theme="dark"] .hide-on-dark,
   :root:not([data-theme]) .hide-on-dark {
     @media (prefers-color-scheme: dark) {
       display: none;
     }
   }
 
-  [data-theme='light'] .hide-on-light,
+  [data-theme="light"] .hide-on-light,
   :root:not([data-theme]) .hide-on-light {
     @media (prefers-color-scheme: light) {
       display: none;
@@ -296,7 +296,7 @@ html.theme-transition * {
   }
 }
 
-[data-theme='dark'] {
+[data-theme="dark"] {
   --adaptive-shadow: var(--shadow-sm-theme);
 }
 
@@ -317,4 +317,3 @@ body[data-debug-theme]::before {
   z-index: var(--z-index-tooltip);
   pointer-events: none;
 }
-

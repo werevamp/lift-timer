@@ -1,7 +1,7 @@
 // Dark Theme Definition
 // Dark mode with carefully chosen colors for contrast and readability
 
-@use '../globals/theme-system' as *;
+@use "../globals/theme-system" as *;
 
 // Mixin to apply dark theme styles
 @mixin dark-theme-styles {
