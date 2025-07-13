@@ -1,0 +1,17 @@
+@use '@styles/globals' as *;
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: rem(8);
+}
+
+.label {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.error {
+  color: var(--color-error);
+  font-size: rem(14);
+}

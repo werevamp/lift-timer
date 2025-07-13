@@ -1,0 +1,35 @@
+@use '@styles/globals' as *;
+
+.theme-switcher {
+  $border: 1px solid var(--color-border);
+  display: flex;
+
+  & > div {
+    &:last-of-type > label {
+      border: $border;
+      border-top-right-radius: var(--radius-sm);
+      border-bottom-right-radius: var(--radius-sm);
+    }
+
+    &:first-of-type > label {
+      border-top-left-radius: var(--radius-sm);
+      border-bottom-left-radius: var(--radius-sm);
+    }
+  }
+
+  label {
+    cursor: pointer;
+    padding: rem(4) rem(8);
+    border: $border;
+    border-right: 0;
+  }
+
+  input[type='radio'] {
+    display: none;
+
+    &:checked + label {
+      background: var(--color-primary-alpha-20);
+    }
+  }
+}
+

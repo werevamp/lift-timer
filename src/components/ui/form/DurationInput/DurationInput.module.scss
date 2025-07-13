@@ -1,0 +1,52 @@
+@use '@styles/globals' as *;
+
+.durationInput {
+  display: flex;
+  flex-direction: column;
+  gap: rem(8);
+}
+
+.label {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.inputGroup {
+  display: flex;
+  align-items: center;
+  gap: rem(8);
+}
+
+.numberInput {
+  appearance: textfield;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  -moz-appearance: textfield;
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  gap: rem(4);
+}
+
+.separator {
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.unit {
+  color: var(--color-text-secondary);
+  font-size: rem(14);
+}
+
+.error {
+  color: var(--color-error);
+  font-size: rem(14);
+}
+
