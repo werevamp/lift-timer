@@ -17,6 +17,7 @@ import {
   faTimes,
   faPlus,
   faMinus,
+  faXmark,
 } from '@fortawesome/free-solid-svg-icons'
 
 // Add icons to the library
@@ -33,7 +34,9 @@ library.add(
   faTimes,
   faPlus,
   faMinus,
+  faXmark
 )
 
 // Export for convenience
 export { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+

@@ -3,12 +3,13 @@ import styles from './SettingsButton.module.scss'
 
 interface SettingsButtonProps {
   onClick: () => void
+  isSettingsOpen?: boolean
 }
 
-export default function SettingsButton({ onClick }: SettingsButtonProps) {
+export default function SettingsButton({ onClick, isSettingsOpen }: SettingsButtonProps) {
   return (
     <button className={styles['settings-button']} onClick={onClick}>
-      <FontAwesomeIcon icon={['fas', 'cog']} />
+      {isSettingsOpen ? <FontAwesomeIcon icon="xmark" /> : <FontAwesomeIcon icon="cog" />}
     </button>
   )
 }
