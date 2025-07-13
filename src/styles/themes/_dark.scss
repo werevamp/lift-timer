@@ -13,6 +13,8 @@
   --color-primary-alpha-20: hsla(217, 90%, 65%, 0.2);
   --color-primary-alpha: hsla(217, 90%, 65%, 0.2);
 
+  --color-primary-hover: hsl(from var(--color-primary) h s calc(l - 20));
+
   --color-secondary: hsl(192, 90%, 65%);
   --color-secondary-light: hsl(192, 90%, 75%);
   --color-secondary-dark: hsl(192, 90%, 55%);
@@ -34,6 +36,7 @@
   --color-text-secondary: hsl(216, 12%, 70%);
   --color-text-muted: hsl(216, 12%, 50%);
   --color-text-inverse: hsl(222, 16%, 12%);
+  --color-text-on-primary: hsl(0, 0%, 100%);
 
   --color-border: hsl(216, 12%, 24%);
   --color-border-light: hsl(216, 12%, 20%);

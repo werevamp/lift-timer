@@ -12,45 +12,49 @@
   --color-primary-alpha-10: hsla(217, 100%, 61%, 0.1);
   --color-primary-alpha-20: hsla(217, 100%, 61%, 0.2);
   --color-primary-alpha: hsla(217, 100%, 61%, 0.2);
-  
+
+  --color-primary-hover: hsl(from var(--color-primary) h s calc(l - 20));
+
   --color-secondary: hsl(192, 100%, 62%);
   --color-secondary-light: hsl(192, 100%, 72%);
   --color-secondary-dark: hsl(192, 100%, 52%);
-  
+
   --color-tertiary: hsl(231, 100%, 66%);
-  
+
   --color-success: hsl(144, 69%, 53%);
   --color-warning: hsl(45, 100%, 51%);
   --color-danger: hsl(354, 81%, 60%);
-  
+
   // Semantic colors
   --color-background: hsl(0, 0%, 100%);
   --color-background-secondary: hsl(0, 0%, 98%);
   --color-surface: hsl(0, 0%, 100%);
   --color-surface-variant: hsl(210, 16%, 96%);
-  
+
   --color-text: hsl(222, 13%, 16%);
   --color-text-secondary: hsl(216, 12%, 40%);
   --color-text-muted: hsl(216, 12%, 60%);
   --color-text-inverse: hsl(0, 0%, 100%);
-  
+  --color-text-on-primary: hsl(0, 0%, 100%);
+
   --color-border: hsl(216, 12%, 84%);
   --color-border-light: hsl(216, 12%, 92%);
-  
+
   // Shadow color for light theme
   --shadow-color: 0, 0, 0;
-  
+
   // Component specific
   --card-background: var(--color-surface);
   --input-border-color: var(--color-border);
-  
+
   // Ionic overrides for light theme
   --ion-background-color: var(--color-background);
   --ion-text-color: var(--color-text);
   --ion-border-color: var(--color-border);
-  
+
   // Set color scheme
   color-scheme: light;
 }
 
 // Note: Theme application is now handled by _theme-controller.scss
+
