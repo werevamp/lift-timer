@@ -1,10 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styles from './SettingsButton.module.scss'
 
-export default function SettingsButton() {
+interface SettingsButtonProps {
+  onClick: () => void
+}
+
+export default function SettingsButton({ onClick }: SettingsButtonProps) {
   return (
-    <div className={styles['settings-button']}>
-      <FontAwesomeIcon icon="cog" className="icon" />
-    </div>
+    <button className={styles['settings-button']} onClick={onClick}>
+      <FontAwesomeIcon icon={['fas', 'cog']} />
+    </button>
   )
 }

@@ -10,9 +10,6 @@ export const Route = createRootRoute({
   component: () => (
     <div className="app-container">
       <Header />
-      <header className="app-header">
-        <ThemeSwitcher />
-      </header>
       <main className="app-content">
         <Outlet />
       </main>

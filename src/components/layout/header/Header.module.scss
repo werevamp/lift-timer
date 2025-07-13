@@ -1,7 +1,13 @@
 @use '@styles/globals' as *;
 
 .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   height: rem(72);
   padding-top: rem(20);
   padding-inline: rem(24);
+  z-index: 100;
+  background-color: var(--color-background);
 }

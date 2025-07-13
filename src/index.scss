@@ -7,3 +7,13 @@
 
 // Import Font Awesome CSS (must come after @use rules)
 @import '@fortawesome/fontawesome-svg-core/styles.css';
+
+// App layout styles
+.app-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+.app-content {
+  padding-top: globals.rem(92); // 72px header + 20px padding
+}

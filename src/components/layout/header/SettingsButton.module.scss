@@ -11,6 +11,7 @@
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-sm);
   cursor: pointer;
+  padding: 0;
   transition:
     background-color 0.3s,
     box-shadow 0.3s;
@@ -23,8 +24,8 @@
     height: 20px;
     fill: var(--color-icon);
     transition: fill 0.3s;
-    &:hover {
-      fill: var(--color-icon-hover);
-    }
+  }
+  &:hover svg {
+    fill: var(--color-icon-hover);
   }
 }
