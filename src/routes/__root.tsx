@@ -2,18 +2,21 @@ import { createRootRoute, Outlet } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 import { ThemeSwitcher } from '@/features/theme'
 import Header from '@/components/layout/header/Header'
+import { TimerSessionProvider } from '@/contexts/TimerSessionContext'
 
 /* Import our custom styles */
 import '../index.scss'
 
 export const Route = createRootRoute({
   component: () => (
-    <div className="app-container">
-      <Header />
-      <main className="app-content">
-        <Outlet />
-      </main>
-      <TanStackRouterDevtools />
-    </div>
+    <TimerSessionProvider>
+      <div className="app-container">
+        <Header />
+        <main className="app-content">
+          <Outlet />
+        </main>
+        <TanStackRouterDevtools />
+      </div>
+    </TimerSessionProvider>
   ),
 })

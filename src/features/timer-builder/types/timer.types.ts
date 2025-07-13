@@ -3,14 +3,19 @@ export interface Duration {
   seconds: number
 }
 
-export interface StandardTimer {
+export interface BaseTimer {
+  id: string
+  name?: string
+}
+
+export interface StandardTimer extends BaseTimer {
   type: 'standard'
   settings: {
     duration: Duration
   }
 }
 
-export interface FixedIntervalTimer {
+export interface FixedIntervalTimer extends BaseTimer {
   type: 'fixed-interval'
   settings: {
     activeTime: Duration
@@ -22,3 +27,11 @@ export interface FixedIntervalTimer {
 export type Timer = StandardTimer | FixedIntervalTimer
 
 export type TimerType = Timer['type']
+
+export interface TimerState {
+  isRunning: boolean
+  isPaused: boolean
+  elapsedSeconds: number
+  startedAt?: number
+  pausedAt?: number
+}
