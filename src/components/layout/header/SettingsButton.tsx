@@ -8,7 +8,7 @@ interface SettingsButtonProps {
 
 export default function SettingsButton({ onClick, isSettingsOpen }: SettingsButtonProps) {
   return (
-    <button className={styles['settings-button']} onClick={onClick}>
+    <button className={styles.settingsButton} onClick={onClick}>
       {isSettingsOpen ? <FontAwesomeIcon icon="xmark" /> : <FontAwesomeIcon icon="cog" />}
     </button>
   )

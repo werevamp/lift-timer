@@ -3,7 +3,7 @@ import styles from './SettingsContent.module.scss'
 
 export default function SettingsContent() {
   return (
-    <div className={styles['settings-content']}>
+    <div className={styles.settingsContent}>
       <ThemeSwitcher />
     </div>
   )
