@@ -13,6 +13,8 @@ LiftTimer is a workout timing application built with React, Vite, and TanStack R
 - `npm run preview` - Preview production build locally
 - `npm run ios:dev` - Run iOS app with live reload
 - `npm run android:dev` - Run Android app with live reload
+- `npm run format` - Format all files with Prettier
+- `npm run format:check` - Check if files are properly formatted
 
 ## Tech Stack
 
@@ -24,6 +26,7 @@ LiftTimer is a workout timing application built with React, Vite, and TanStack R
 - **SCSS** - Styling with CSS modules
 - **PostCSS** - CSS processing
 - **Autoprefixer** - CSS vendor prefixes
+- **Prettier** - Code formatting
 
 ## Project Architecture
 
@@ -128,11 +131,11 @@ Use absolute paths for global styles:
 
 ```scss
 // ✅ Good: Absolute import
-@use '@styles/globals' as *;
-@use '@styles/globals/variables' as vars;
+@use "@styles/globals" as *;
+@use "@styles/globals/variables" as vars;
 
 // ⚠️ Use relative imports only for local component styles
-@import './timer-local-styles';
+@import "./timer-local-styles";
 ```
 
 #### When to Use Relative Imports
@@ -153,3 +156,13 @@ Use absolute paths for global styles:
   - Routes: lowercase (index.tsx, settings.tsx)
   - Components: PascalCase (Button.tsx, TimerDisplay.tsx)
   - Utilities: camelCase (formatTime.ts, useTimer.ts)
+
+## Code Formatting
+
+- **Prettier** is configured for consistent code formatting
+- No semicolons in JavaScript/TypeScript
+- Single quotes for strings (except JSX and SCSS)
+- 2-space indentation
+- 100 character line width
+- Run `npm run format` before committing
+- See [docs/prettier-setup.md](./docs/prettier-setup.md) for full configuration details
