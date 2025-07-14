@@ -46,6 +46,23 @@
 }
 
 // Button Mixins
+@mixin button-reset {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-align: inherit;
+  text-decoration: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
 @mixin button-variant($bg-color, $text-color: white) {
   background-color: $bg-color;
   color: $text-color;

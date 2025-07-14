@@ -1,0 +1,42 @@
+@use "@styles/globals" as *;
+
+.container {
+  width: 100%;
+  padding: var(--spacing-md) 0;
+}
+
+.sessionProgress {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+
+  .sessionName {
+    display: block;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .timerCount {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+  }
+}
+
+.controls {
+  @include flex-center;
+  flex-direction: column;
+  gap: var(--spacing-md);
+
+  @include md {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.navigationGroup {
+  @include flex-center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}

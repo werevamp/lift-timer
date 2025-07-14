@@ -7,14 +7,13 @@ import { z } from 'zod'
 
 // Search params schema
 const searchSchema = z.object({
-  session: z.string().optional(),
   returnUrl: z.string().optional(),
 })
 
 export default function TimerBuilderView() {
   const navigate = useNavigate()
   const searchParams = useSearch({ strict: false }) as z.infer<typeof searchSchema>
-  const { session: sessionId, returnUrl } = searchParams
+  const { returnUrl } = searchParams
   const { createSession, addTimerToSession, currentSession } = useTimerSession()
 
   const handleTimerSubmit = (timer: Timer) => {
@@ -24,7 +23,7 @@ export default function TimerBuilderView() {
       id: crypto.randomUUID(),
     }
 
-    if (sessionId && currentSession) {
+    if (currentSession) {
       // Adding to existing session
       addTimerToSession(timerWithId)
 
@@ -33,9 +32,8 @@ export default function TimerBuilderView() {
         window.location.href = decodeURIComponent(returnUrl)
       } else {
         navigate({
-          to: '/timer/session/$sessionId',
-          params: { sessionId },
-          search: { index: currentSession.currentTimerIndex },
+          to: '/timer/session',
+          search: { index: currentSession.timerIds.length - 1 },
         })
       }
     } else {
@@ -47,7 +45,7 @@ export default function TimerBuilderView() {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>{sessionId ? 'Add Timer to Workout' : 'Create Timer'}</h1>
+      <h1 className={styles.title}>{currentSession ? 'Add Timer to Workout' : 'Create Timer'}</h1>
       <TimerBuilder onSubmit={handleTimerSubmit} />
     </div>
   )

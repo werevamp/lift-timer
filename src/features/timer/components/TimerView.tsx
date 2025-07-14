@@ -1,43 +1,19 @@
-import { Timer } from '@/features/timer-builder/types/timer.types'
+import { useTimerSession } from '@/contexts/TimerSessionContext'
+import { SessionControls } from './SessionControls'
 import styles from './TimerView.module.scss'
 
-export interface TimerViewProps {
-  // Current timer configuration
-  timer: Timer
+export function TimerView() {
+  const { currentSession, activeTimer } = useTimerSession()
 
-  // Session information (if part of a workout sequence)
-  session?: {
-    id: string
-    name?: string
-    currentIndex: number
-    totalTimers: number
-    hasNext: boolean
-    hasPrevious: boolean
+  if (!activeTimer || !currentSession) {
+    return <div>Loading timer...</div>
   }
 
-  // Navigation callbacks
-  onNextTimer?: () => void
-  onPreviousTimer?: () => void
-  onAddTimer?: () => void
-  onComplete?: () => void
-}
-
-export function TimerView({
-  timer,
-  session,
-  onNextTimer,
-  onPreviousTimer,
-  onAddTimer,
-  onComplete,
-}: TimerViewProps) {
+  const timer = activeTimer
   // TODO: Implement timer display and controls
-  // This is a placeholder for your teammate to implement the actual timer UI
-
+  // NOTE: Remove test data once you start implementing the timer logic
   return (
     <div className={styles.container}>
-      <h1>Timer: {timer.name || 'Unnamed Timer'}</h1>
-
-      {/* Display timer type and configuration */}
       <div className={styles.timerInfo}>
         <p>Type: {timer.type}</p>
         <p>ID: {timer.id}</p>
@@ -61,33 +37,14 @@ export function TimerView({
         )}
       </div>
 
-      {/* Display session info if part of a workout */}
-      {session && (
-        <div className={styles.sessionInfo}>
-          <h2>Workout: {session.name || 'Unnamed Workout'}</h2>
-          <p>
-            Timer {session.currentIndex + 1} of {session.totalTimers}
-          </p>
-        </div>
-      )}
-
-      {/* Navigation controls */}
-      <div className={styles.controls}>
-        {session?.hasPrevious && onPreviousTimer && (
-          <button onClick={onPreviousTimer}>Previous Timer</button>
-        )}
-
-        {session?.hasNext && onNextTimer && <button onClick={onNextTimer}>Next Timer</button>}
-
-        {onAddTimer && <button onClick={onAddTimer}>Add Timer</button>}
-
-        {onComplete && <button onClick={onComplete}>Complete</button>}
-      </div>
-
       {/* TODO: Implement actual timer countdown/interval logic here */}
       <div className={styles.timerDisplay}>
         <p>Timer implementation goes here</p>
+        <p>You can also delete the data above, its here just to</p>
       </div>
+
+      {/* Session Navigation Controls */}
+      <SessionControls />
     </div>
   )
 }

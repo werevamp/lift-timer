@@ -28,9 +28,10 @@ export type Timer = StandardTimer | FixedIntervalTimer
 
 export type TimerType = Timer['type']
 
+export type TimerStatus = 'idle' | 'running' | 'paused' | 'completed'
+
 export interface TimerState {
-  isRunning: boolean
-  isPaused: boolean
+  status: TimerStatus
   elapsedSeconds: number
   startedAt?: number
   pausedAt?: number

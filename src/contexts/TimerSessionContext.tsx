@@ -7,7 +7,7 @@ import React, {
   ReactNode,
 } from 'react'
 import { useNavigate } from '@tanstack/react-router'
-import type { Timer, TimerState } from '@/features/timer-builder/types/timer.types'
+import type { Timer, TimerState, TimerStatus } from '@/features/timer-builder/types/timer.types'
 import { timerStorage, type WorkoutSession } from '@/utils/storage/timer-storage'
 
 interface TimerSessionContextState {
@@ -18,18 +18,22 @@ interface TimerSessionContextState {
 
   // Session management
   createSession: (timer: Timer, sessionName?: string) => void
-  loadSession: (sessionId: string) => void
+  loadSession: () => void
   addTimerToSession: (timer: Timer) => void
   clearSession: () => void
 
   // Timer navigation
+  navigateToTimer: (index: number) => void
   nextTimer: () => void
   previousTimer: () => void
-  goToTimer: (index: number) => void
 
   // Timer state management
   updateTimerState: (state: Partial<TimerState>) => void
   completeCurrentTimer: () => void
+
+  // Computed properties
+  hasNextTimer: boolean
+  hasPreviousTimer: boolean
 }
 
 const TimerSessionContext = createContext<TimerSessionContextState | undefined>(undefined)
@@ -52,7 +56,34 @@ export const TimerSessionProvider: React.FC<TimerSessionProviderProps> = ({ chil
   const [activeTimer, setActiveTimer] = useState<Timer | null>(null)
   const [timerState, setTimerState] = useState<TimerState | null>(null)
 
-  // Load session from localStorage on mount or when session changes
+  // Computed properties
+  const hasNextTimer = currentSession
+    ? currentSession.currentTimerIndex < currentSession.timerIds.length - 1
+    : false
+  const hasPreviousTimer = currentSession ? currentSession.currentTimerIndex > 0 : false
+
+  // Helper function to reset timer state
+  const resetTimerState = useCallback(() => {
+    setTimerState({
+      status: 'idle',
+      elapsedSeconds: 0,
+    })
+  }, [])
+
+  // Load session on mount
+  useEffect(() => {
+    const session = timerStorage.getSession()
+    if (session) {
+      setCurrentSession(session)
+      const timer = timerStorage.getTimer(session.timerIds[session.currentTimerIndex])
+      if (timer) {
+        setActiveTimer(timer)
+        resetTimerState()
+      }
+    }
+  }, [resetTimerState])
+
+  // Load timer when session changes
   useEffect(() => {
     if (currentSession) {
       const timer = timerStorage.getTimer(currentSession.timerIds[currentSession.currentTimerIndex])
@@ -64,11 +95,9 @@ export const TimerSessionProvider: React.FC<TimerSessionProviderProps> = ({ chil
   const createSession = useCallback(
     (timer: Timer, sessionName?: string) => {
       const session: WorkoutSession = {
-        id: crypto.randomUUID(),
         name: sessionName,
         timerIds: [timer.id],
         currentTimerIndex: 0,
-        isActive: true,
         createdAt: Date.now(),
         updatedAt: Date.now(),
       }
@@ -76,46 +105,35 @@ export const TimerSessionProvider: React.FC<TimerSessionProviderProps> = ({ chil
       // Save to storage
       timerStorage.saveTimer(timer)
       timerStorage.saveSession(session)
-      timerStorage.setActiveSessionId(session.id)
 
       // Update state
       setCurrentSession(session)
       setActiveTimer(timer)
-      setTimerState({
-        isRunning: false,
-        isPaused: false,
-        elapsedSeconds: 0,
-      })
+      resetTimerState()
 
       // Navigate to timer
       navigate({
-        to: '/timer/session/$sessionId',
-        params: { sessionId: session.id },
+        to: '/timer/session',
         search: { index: 0 },
       })
     },
-    [navigate]
+    [navigate, resetTimerState]
   )
 
   // Load existing session
-  const loadSession = useCallback((sessionId: string) => {
-    const session = timerStorage.getSession(sessionId)
+  const loadSession = useCallback(() => {
+    const session = timerStorage.getSession()
     if (session) {
       setCurrentSession(session)
-      timerStorage.setActiveSessionId(session.id)
 
       // Load current timer
       const timer = timerStorage.getTimer(session.timerIds[session.currentTimerIndex])
       if (timer) {
         setActiveTimer(timer)
-        setTimerState({
-          isRunning: false,
-          isPaused: false,
-          elapsedSeconds: 0,
-        })
+        resetTimerState()
       }
     }
-  }, [])
+  }, [resetTimerState])
 
   // Add timer to current session
   const addTimerToSession = useCallback(
@@ -140,76 +158,14 @@ export const TimerSessionProvider: React.FC<TimerSessionProviderProps> = ({ chil
 
   // Clear session
   const clearSession = useCallback(() => {
-    timerStorage.clearActiveSessionId()
+    timerStorage.deleteSession()
     setCurrentSession(null)
     setActiveTimer(null)
     setTimerState(null)
   }, [])
 
-  // Navigate to next timer
-  const nextTimer = useCallback(() => {
-    if (!currentSession) return
-
-    const nextIndex = currentSession.currentTimerIndex + 1
-    if (nextIndex < currentSession.timerIds.length) {
-      const updatedSession = {
-        ...currentSession,
-        currentTimerIndex: nextIndex,
-        updatedAt: Date.now(),
-      }
-
-      timerStorage.saveSession(updatedSession)
-      setCurrentSession(updatedSession)
-
-      // Reset timer state for new timer
-      setTimerState({
-        isRunning: false,
-        isPaused: false,
-        elapsedSeconds: 0,
-      })
-
-      // Update URL
-      navigate({
-        to: '/timer/session/$sessionId',
-        params: { sessionId: currentSession.id },
-        search: { index: nextIndex },
-      })
-    }
-  }, [currentSession, navigate])
-
-  // Navigate to previous timer
-  const previousTimer = useCallback(() => {
-    if (!currentSession) return
-
-    const prevIndex = currentSession.currentTimerIndex - 1
-    if (prevIndex >= 0) {
-      const updatedSession = {
-        ...currentSession,
-        currentTimerIndex: prevIndex,
-        updatedAt: Date.now(),
-      }
-
-      timerStorage.saveSession(updatedSession)
-      setCurrentSession(updatedSession)
-
-      // Reset timer state
-      setTimerState({
-        isRunning: false,
-        isPaused: false,
-        elapsedSeconds: 0,
-      })
-
-      // Update URL
-      navigate({
-        to: '/timer/session/$sessionId',
-        params: { sessionId: currentSession.id },
-        search: { index: prevIndex },
-      })
-    }
-  }, [currentSession, navigate])
-
-  // Go to specific timer
-  const goToTimer = useCallback(
+  // Single navigation method
+  const navigateToTimer = useCallback(
     (index: number) => {
       if (!currentSession || index < 0 || index >= currentSession.timerIds.length) return
 
@@ -221,23 +177,29 @@ export const TimerSessionProvider: React.FC<TimerSessionProviderProps> = ({ chil
 
       timerStorage.saveSession(updatedSession)
       setCurrentSession(updatedSession)
-
-      // Reset timer state
-      setTimerState({
-        isRunning: false,
-        isPaused: false,
-        elapsedSeconds: 0,
-      })
+      resetTimerState()
 
       // Update URL
       navigate({
-        to: '/timer/session/$sessionId',
-        params: { sessionId: currentSession.id },
+        to: '/timer/session',
         search: { index },
       })
     },
-    [currentSession, navigate]
+    [currentSession, navigate, resetTimerState]
   )
+
+  // Convenience methods using navigateToTimer
+  const nextTimer = useCallback(() => {
+    if (currentSession && hasNextTimer) {
+      navigateToTimer(currentSession.currentTimerIndex + 1)
+    }
+  }, [currentSession, hasNextTimer, navigateToTimer])
+
+  const previousTimer = useCallback(() => {
+    if (currentSession && hasPreviousTimer) {
+      navigateToTimer(currentSession.currentTimerIndex - 1)
+    }
+  }, [currentSession, hasPreviousTimer, navigateToTimer])
 
   // Update timer state
   const updateTimerState = useCallback((state: Partial<TimerState>) => {
@@ -247,7 +209,7 @@ export const TimerSessionProvider: React.FC<TimerSessionProviderProps> = ({ chil
   // Complete current timer
   const completeCurrentTimer = useCallback(() => {
     // Mark timer as complete and potentially auto-advance
-    updateTimerState({ isRunning: false, isPaused: false })
+    updateTimerState({ status: 'completed' })
   }, [updateTimerState])
 
   return (
@@ -260,11 +222,13 @@ export const TimerSessionProvider: React.FC<TimerSessionProviderProps> = ({ chil
         loadSession,
         addTimerToSession,
         clearSession,
+        navigateToTimer,
         nextTimer,
         previousTimer,
-        goToTimer,
         updateTimerState,
         completeCurrentTimer,
+        hasNextTimer,
+        hasPreviousTimer,
       }}
     >
       {children}
