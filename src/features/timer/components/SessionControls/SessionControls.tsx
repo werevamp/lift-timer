@@ -12,17 +12,19 @@ import styles from './SessionControls.module.scss'
 export function SessionControls() {
   const navigate = useNavigate()
   const {
-    currentSession,
+    timers,
+    currentTimerIndex,
+    sessionName,
     nextTimer,
     previousTimer,
     hasNextTimer,
     hasPreviousTimer,
+    clearSession,
   } = useTimerSession()
 
   // Handle navigation to timer builder
   const handleAddTimer = () => {
-    if (!currentSession) return
-    const returnUrl = `/timer/session?index=${currentSession.currentTimerIndex}`
+    const returnUrl = `/timer/session?index=${currentTimerIndex}`
     navigate({
       to: '/timer-builder',
       search: {
@@ -36,11 +38,12 @@ export function SessionControls() {
     if (hasNextTimer) {
       nextTimer()
     } else {
+      clearSession()
       navigate({ to: '/' })
     }
   }
 
-  if (!currentSession) {
+  if (timers.length === 0) {
     return null
   }
 
@@ -50,9 +53,9 @@ export function SessionControls() {
     <div className={styles.container}>
       {/* Session Progress */}
       <div className={styles.sessionProgress}>
-        <span className={styles.sessionName}>{currentSession.name || 'Workout Session'}</span>
+        <span className={styles.sessionName}>{sessionName || 'Workout Session'}</span>
         <span className={styles.timerCount}>
-          Timer {currentSession.currentTimerIndex + 1} of {currentSession.timerIds.length}
+          Timer {currentTimerIndex + 1} of {timers.length}
         </span>
       </div>
 
@@ -111,3 +114,4 @@ export function SessionControls() {
     </div>
   )
 }
+

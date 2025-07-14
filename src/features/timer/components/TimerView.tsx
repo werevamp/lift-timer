@@ -3,13 +3,13 @@ import { SessionControls } from './SessionControls'
 import styles from './TimerView.module.scss'
 
 export function TimerView() {
-  const { currentSession, activeTimer } = useTimerSession()
+  const { currentTimer } = useTimerSession()
 
-  if (!activeTimer || !currentSession) {
+  if (!currentTimer) {
     return <div>Loading timer...</div>
   }
 
-  const timer = activeTimer
+  const timer = currentTimer
   // TODO: Implement timer display and controls
   // NOTE: Remove test data once you start implementing the timer logic
   return (

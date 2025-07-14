@@ -4,13 +4,11 @@ import type { Timer } from '@/features/timer-builder/types/timer.types'
 const TIMER_PREFIX = 'timer-'
 const CURRENT_SESSION_KEY = 'currentSession'
 
-// Workout session interface
-export interface WorkoutSession {
-  name?: string
-  timerIds: string[]
+// Session data interface
+export interface SessionData {
+  timers: Timer[]
   currentTimerIndex: number
-  createdAt: number
-  updatedAt: number
+  sessionName?: string
 }
 
 // Timer storage functions
@@ -43,7 +41,7 @@ export const timerStorage = {
   },
 
   // Session operations
-  saveSession: (session: WorkoutSession): void => {
+  saveSession: (session: SessionData): void => {
     try {
       localStorage.setItem(CURRENT_SESSION_KEY, JSON.stringify(session))
     } catch (error) {
@@ -51,7 +49,7 @@ export const timerStorage = {
     }
   },
 
-  getSession: (): WorkoutSession | null => {
+  getSession: (): SessionData | null => {
     try {
       const data = localStorage.getItem(CURRENT_SESSION_KEY)
       return data ? JSON.parse(data) : null
@@ -73,14 +71,13 @@ export const timerStorage = {
     return localStorage.getItem(CURRENT_SESSION_KEY) !== null
   },
 
-  updateSession: (updates: Partial<WorkoutSession>): void => {
+  updateSession: (updates: Partial<SessionData>): void => {
     try {
       const session = timerStorage.getSession()
       if (session) {
         const updatedSession = {
           ...session,
           ...updates,
-          updatedAt: Date.now(),
         }
         timerStorage.saveSession(updatedSession)
       }
@@ -111,35 +108,19 @@ export const timerStorage = {
     }
   },
 
-  // Clean up orphaned timers (not in the session)
-  cleanupOrphanedTimers: (): void => {
+  // Clear all data
+  clearAll: (): void => {
     try {
-      const session = timerStorage.getSession()
-      const sessionTimerIds = new Set(session?.timerIds || [])
-      const timers = timerStorage.getAllTimers()
-
-      timers.forEach((timer) => {
-        if (!sessionTimerIds.has(timer.id)) {
-          timerStorage.deleteTimer(timer.id)
+      timerStorage.deleteSession()
+      // Clear all timer keys
+      for (let i = localStorage.length - 1; i >= 0; i--) {
+        const key = localStorage.key(i)
+        if (key?.startsWith(TIMER_PREFIX)) {
+          localStorage.removeItem(key)
         }
-      })
-    } catch (error) {
-      console.error('Failed to cleanup orphaned timers:', error)
-    }
-  },
-
-  // Clear all timers in the current session
-  clearSessionTimers: (): void => {
-    try {
-      const session = timerStorage.getSession()
-      if (session) {
-        session.timerIds.forEach((timerId) => {
-          timerStorage.deleteTimer(timerId)
-        })
-        timerStorage.deleteSession()
       }
     } catch (error) {
-      console.error('Failed to clear session timers:', error)
+      console.error('Failed to clear all data:', error)
     }
   },
 }

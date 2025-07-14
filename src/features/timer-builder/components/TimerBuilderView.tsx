@@ -14,7 +14,7 @@ export default function TimerBuilderView() {
   const navigate = useNavigate()
   const searchParams = useSearch({ strict: false }) as z.infer<typeof searchSchema>
   const { returnUrl } = searchParams
-  const { createSession, addTimerToSession, currentSession } = useTimerSession()
+  const { startSession, addTimer, timers } = useTimerSession()
 
   const handleTimerSubmit = (timer: Timer) => {
     // Add ID to timer
@@ -23,9 +23,9 @@ export default function TimerBuilderView() {
       id: crypto.randomUUID(),
     }
 
-    if (currentSession) {
+    if (timers.length > 0) {
       // Adding to existing session
-      addTimerToSession(timerWithId)
+      addTimer(timerWithId)
 
       // Navigate back to timer page
       if (returnUrl) {
@@ -33,19 +33,19 @@ export default function TimerBuilderView() {
       } else {
         navigate({
           to: '/timer/session',
-          search: { index: currentSession.timerIds.length - 1 },
+          search: { index: timers.length },
         })
       }
     } else {
       // Creating new session
-      createSession(timerWithId, `Workout ${new Date().toLocaleDateString()}`)
-      // Navigation happens automatically in createSession
+      startSession(timerWithId, `Workout ${new Date().toLocaleDateString()}`)
+      // Navigation happens automatically in startSession
     }
   }
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>{currentSession ? 'Add Timer to Workout' : 'Create Timer'}</h1>
+      <h1 className={styles.title}>{timers.length > 0 ? 'Add Timer to Workout' : 'Create Timer'}</h1>
       <TimerBuilder onSubmit={handleTimerSubmit} />
     </div>
   )

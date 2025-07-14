@@ -4,3 +4,4 @@ import { TimerView } from '@/features/timer'
 export const Route = createFileRoute('/timer/session/')({
   component: TimerView,
 })
+
