@@ -103,6 +103,20 @@
   }
 }
 
+.outline {
+  background-color: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+
+  &:hover:not(.disabled) {
+    background-color: var(--color-background-secondary);
+  }
+
+  &:active:not(.disabled) {
+    transform: scale(0.98);
+  }
+}
+
 // Modifiers
 .fullWidth {
   width: 100%;

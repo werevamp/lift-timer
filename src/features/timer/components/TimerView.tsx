@@ -1,4 +1,4 @@
-import { useTimerSession } from '@/contexts/TimerSessionContext'
+import { useTimerSession } from '@/contexts/timer-session'
 import { SessionControls } from './SessionControls'
 import styles from './TimerView.module.scss'
 

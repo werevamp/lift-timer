@@ -86,7 +86,6 @@ export const timerStorage = {
     }
   },
 
-
   // Utility functions
 
   getAllTimers: (): Timer[] => {

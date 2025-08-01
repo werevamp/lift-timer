@@ -10,10 +10,14 @@ export default function Header() {
     setIsSettingsOpen(!isSettingsOpen)
   }
 
+  const closeSettings = () => {
+    setIsSettingsOpen(false)
+  }
+
   return (
     <div className={styles.header}>
       <SettingsButton onClick={toggleSettings} isSettingsOpen={isSettingsOpen} />
-      {isSettingsOpen && <SettingsContent />}
+      {isSettingsOpen && <SettingsContent closeSettings={closeSettings} />}
       {isSettingsOpen && <div className={styles.clickAwayBox} onClick={toggleSettings} />}
     </div>
   )

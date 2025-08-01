@@ -1,40 +1,45 @@
 # Timer Data Architecture
 
-This document explains the timer data flow architecture for the LiftTimer application. It describes how timer data is passed from the TimerBuilder to the Timer page, supporting both single timers and workout sequences.
+This document explains the timer data flow architecture for the LiftTimer application. It describes how timer data is managed and passed between components using a simplified single-session model.
 
 ## Overview
 
-The timer system uses a **hybrid approach** combining:
+The timer system uses a **simplified approach** combining:
 
-- **React Context** for active timer state management
-- **localStorage** for data persistence
-- **URL routing** for navigation and sharing
+- **React Context** (`TimerSessionContext`) for state management
+- **localStorage** for data persistence (single session)
+- **Simple routing** without session IDs
 
 This architecture ensures:
 
-- Timers continue running during navigation
+- Single active workout session at a time
 - Data persists across browser refreshes
-- Workouts can be shared via URLs
-- Dynamic timer addition during active sessions
+- Clean and simple component APIs
+- Easy future migration to database storage
 
 ## Architecture Diagram
 
 ```
-┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐
-│  TimerBuilder   │────▶│  Context/Store   │────▶│   Timer Page    │
-│                 │     │                  │     │                 │
-│ Creates timers  │     │ - Active session │     │ Displays timer  │
-│ Generates IDs   │     │ - Timer state    │     │ Shows controls  │
-└─────────────────┘     │ - Elapsed time   │     └─────────────────┘
-         │              └──────────────────┘              ▲
-         │                       │                        │
-         ▼                       ▼                        │
-┌─────────────────┐     ┌──────────────────┐     ┌──────────────────┐
-│  localStorage   │     │       URL        │     │   Route Params   │
-│                 │     │                  │     │                  │
-│ - Timer data    │     │ /timer/session/  │────▶│ - Session ID     │
-│ - Sessions      │     │   {sessionId}    │     │ - Timer index    │
-└─────────────────┘     └──────────────────┘     └──────────────────┘
+┌─────────────────┐     ┌───────────────────┐     ┌─────────────────┐
+│  TimerBuilder   │────▶│TimerSessionContext│────▶│   TimerView     │
+│                 │     │                   │     │                 │
+│ Creates timers  │     │ - timers[]        │     │ Gets data from  │
+│ Generates IDs   │     │ - currentIndex    │     │ context directly│
+└─────────────────┘     │ - sessionName     │     └─────────────────┘
+                        │ - timerState      │
+                        └───────────────────┘
+                                 │
+                                 ▼
+                        ┌──────────────────────┐
+                        │   localStorage       │
+                        │                      │
+                        │ Single session       │
+                        │ key: 'currentSession'│
+                        └──────────────────────┘
+
+Routes:
+- /timer-builder       → Create/add timers
+- /timer/session       → View active session
 ```
 
 ## Data Types
@@ -70,56 +75,58 @@ interface FixedIntervalTimerSettings {
 }
 ```
 
-### Workout Session
+### Session Data (in localStorage)
 
 ```typescript
-interface WorkoutSession {
-  id: string
-  name?: string
-  timerIds: string[]
-  currentTimerIndex: number
-  isActive: boolean
-  createdAt: number
-  updatedAt: number
+interface SessionData {
+  timers: Timer[] // Array of timer objects
+  currentTimerIndex: number // Current position in array
+  sessionName?: string // Optional session name
 }
 ```
 
 ### Timer State (Runtime)
 
 ```typescript
+type TimerStatus = 'idle' | 'running' | 'paused' | 'completed'
+
 interface TimerState {
-  isRunning: boolean
-  isPaused: boolean
-  elapsedSeconds: number
-  startedAt?: number
-  pausedAt?: number
+  status: TimerStatus // Current timer status
+  elapsedSeconds: number // Time elapsed
+  startedAt?: number // Timestamp when started
+  pausedAt?: number // Timestamp when paused
 }
 ```
 
-## Timer View Props
+## Component APIs
 
-The Timer page component receives these props:
+### TimerView Component
 
-```typescript
-interface TimerViewProps {
-  // Current timer configuration
-  timer: Timer
+The TimerView component uses the `useTimerSession` hook directly - no props needed:
 
-  // Session information (if part of a workout sequence)
-  session?: {
-    id: string
-    name?: string
-    currentIndex: number
-    totalTimers: number
-    hasNext: boolean
-    hasPrevious: boolean
-  }
+```tsx
+export function TimerView() {
+  const { currentTimer } = useTimerSession()
 
-  // Navigation callbacks
-  onNextTimer?: () => void
-  onPreviousTimer?: () => void
-  onAddTimer?: () => void
-  onComplete?: () => void
+  return (
+    <div>
+      {/* Timer display */}
+      <SessionControls />
+    </div>
+  )
+}
+```
+
+### SessionControls Component
+
+Similarly, SessionControls accesses context directly:
+
+```tsx
+export function SessionControls() {
+  const { timers, currentTimerIndex, nextTimer, previousTimer, hasNextTimer, hasPreviousTimer } =
+    useTimerSession()
+
+  // Render navigation controls
 }
 ```
 
@@ -130,189 +137,188 @@ interface TimerViewProps {
 ```
 1. User fills TimerBuilder form
 2. TimerBuilder generates unique ID (crypto.randomUUID())
-3. Creates WorkoutSession with single timer
-4. Saves to localStorage:
-   - Timer by ID: localStorage.setItem('timer-{id}', timer)
-   - Session: localStorage.setItem('session-{id}', session)
-5. Updates Context with new session
-6. Navigates to: /timer/session/{sessionId}?index=0
-7. Timer page loads data from Context/localStorage
+3. Calls startSession(timer, sessionName)
+4. Context:
+   - Sets timers = [timer]
+   - Sets currentTimerIndex = 0
+   - Saves to localStorage key 'currentSession'
+5. Navigates to: /timer/session
+6. TimerView renders with currentTimer from context
 ```
 
-### 2. Adding Timer to Active Session
+### 2. Adding Timer to Existing Session
 
 ```
-1. Timer running at: /timer/session/abc123?index=0
-2. User clicks "Add Timer" button
-3. Navigate to: /timer-builder?session=abc123&returnUrl=/timer/session/abc123?index=0
-4. Timer continues running in Context
-5. User creates new timer in TimerBuilder
-6. New timer added to session.timerIds array
-7. Navigate back to active timer
-8. New timer available as "Next Timer"
+1. User at: /timer/session (viewing current timer)
+2. Clicks "Add Timer" button
+3. Navigate to: /timer-builder?returnUrl=/timer/session
+4. User creates new timer
+5. Calls addTimer(timer)
+6. Context:
+   - Appends timer to timers array
+   - Updates localStorage
+7. Returns to session view
+8. New timer available via "Next Timer"
 ```
 
 ### 3. Navigating Between Timers
 
 ```
-1. Current URL: /timer/session/abc123?index=0
-2. User completes timer and clicks "Next Timer"
-3. Context updates currentTimerIndex
-4. Navigate to: /timer/session/abc123?index=1
-5. Timer page loads next timer from session
-6. Previous timer data preserved in localStorage
+1. User viewing timer at index 0
+2. Clicks "Next Timer"
+3. Context:
+   - Updates currentTimerIndex to 1
+   - Saves to localStorage
+   - Resets timer state
+4. TimerView re-renders with new currentTimer
 ```
 
 ### 4. Resuming After Refresh
 
 ```
-1. User refreshes at: /timer/session/abc123?index=1
-2. App initializes:
-   - Read sessionId from URL
-   - Load session from localStorage
-   - Load current timer from localStorage
-   - Restore to Context
-3. Timer page receives data from Context
-4. UI shows timer at correct position
+1. User refreshes browser
+2. TimerSessionContext on mount:
+   - Loads from localStorage 'currentSession'
+   - Restores timers array and currentTimerIndex
+3. TimerView renders with restored state
 ```
 
-## Implementation Guide for Timer Page
+## Implementation Guide
 
-### 1. Accessing Timer Data
+### 1. Using the TimerSession Hook
 
 ```tsx
-// In your Timer page component
-function TimerPage() {
-  // Timer data will be passed as props from the route
-  // The route handles loading from Context/localStorage
+function MyComponent() {
+  const {
+    // State
+    timers, // Timer[]
+    currentTimerIndex, // number
+    currentTimer, // Timer | null (computed)
+    sessionName, // string | undefined
+    timerState, // TimerState | null
 
-  return <TimerView {...timerViewProps} />
+    // Navigation
+    hasNextTimer, // boolean
+    hasPreviousTimer, // boolean
+    nextTimer, // () => void
+    previousTimer, // () => void
+    navigateToTimer, // (index: number) => void
+
+    // Session management
+    startSession, // (timer: Timer, name?: string) => void
+    addTimer, // (timer: Timer) => void
+    clearSession, // () => void
+
+    // Timer controls
+    updateTimerState, // (state: Partial<TimerState>) => void
+    completeCurrentTimer, // () => void
+  } = useTimerSession()
 }
 ```
 
-### 2. Handling Timer Controls
+### 2. Timer Implementation Example
 
 ```tsx
-function TimerView({ timer, session, onNextTimer, onAddTimer }: TimerViewProps) {
-  // Display timer based on type
-  const isStandardTimer = timer.type === 'standard'
-  const isIntervalTimer = timer.type === 'fixed-interval'
+function TimerDisplay() {
+  const { currentTimer, timerState, updateTimerState } = useTimerSession()
 
-  // Show session progress if part of sequence
-  if (session) {
-    // Display: "Timer 2 of 5"
-    // Show Next/Previous buttons based on hasNext/hasPrevious
+  if (!currentTimer) return <div>No timer selected</div>
+
+  // Standard timer countdown
+  if (currentTimer.type === 'standard') {
+    const totalSeconds =
+      currentTimer.settings.duration.minutes * 60 + currentTimer.settings.duration.seconds
+
+    // Implement countdown logic
+    const remainingSeconds = totalSeconds - (timerState?.elapsedSeconds || 0)
   }
 
-  // Always show "Add Timer" button
-  // Call onAddTimer() when clicked
-}
-```
+  // Control timer state
+  const handleStart = () => {
+    updateTimerState({
+      status: 'running',
+      startedAt: Date.now(),
+    })
+  }
 
-### 3. Timer State Management
-
-The Timer page should focus on:
-
-- Displaying the timer configuration
-- Managing countdown/interval logic
-- Showing appropriate controls
-- Calling navigation callbacks
-
-The Context handles:
-
-- Persisting timer state
-- Navigation between timers
-- Session management
-- localStorage synchronization
-
-### 4. Example Timer Display Logic
-
-```tsx
-// For standard timer
-if (timer.type === 'standard') {
-  const totalSeconds = timer.settings.duration.minutes * 60 + timer.settings.duration.seconds
-  // Implement countdown from totalSeconds
-}
-
-// For interval timer
-if (timer.type === 'fixed-interval') {
-  const { activeTime, restTime, rounds } = timer.settings
-  // Implement interval logic with rounds
+  const handlePause = () => {
+    updateTimerState({
+      status: 'paused',
+      pausedAt: Date.now(),
+    })
+  }
 }
 ```
 
 ## URL Structure
 
-### Single Timer (Future)
+### Routes
 
 ```
-/timer/{timerId}
+/timer-builder         → Create new timer or add to session
+/timer/session         → View/run active timer session
 ```
 
-### Timer in Session
+### Query Parameters
 
 ```
-/timer/session/{sessionId}?index={currentIndex}
-```
-
-### Timer Builder with Context
-
-```
-/timer-builder?session={sessionId}&returnUrl={encodedUrl}
+/timer-builder?returnUrl={encodedUrl}  → Return to session after creating
+/timer/session?index={number}          → Jump to specific timer (optional)
 ```
 
 ## Storage Structure
 
-### localStorage Keys
+### localStorage
+
+Only one key is used for the entire session:
 
 ```javascript
-// Individual timers
-`timer-${timerId}` → Timer object
-
-// Workout sessions
-`session-${sessionId}` → WorkoutSession object
-
-// Active session (optional)
-`activeSessionId` → Current session ID
+'currentSession' → {
+  timers: Timer[],
+  currentTimerIndex: number,
+  sessionName?: string
+}
 ```
 
-## Testing Considerations
+Individual timer objects are stored inline within the session, not separately.
 
-### For Timer Page Development
+## Key Architecture Decisions
 
-1. **Test with mock data**:
+### 1. Single Session Model
 
-   ```tsx
-   const mockTimer: Timer = {
-     id: 'test-123',
-     type: 'standard',
-     name: 'Test Timer',
-     settings: {
-       duration: { minutes: 5, seconds: 0 },
-     },
-   }
-   ```
+- Only one active workout session at a time
+- No session IDs needed
+- Simplifies state management
+- Easy migration to multi-session database model later
 
-2. **Test session scenarios**:
-   - Single timer (no session)
-   - First timer in sequence
-   - Middle timer in sequence
-   - Last timer in sequence
+### 2. Direct Context Access
 
-3. **Test navigation callbacks**:
-   - Ensure onNextTimer updates the URL
-   - Ensure onAddTimer navigates correctly
-   - Test completion behavior
+- Components use `useTimerSession()` hook directly
+- No prop drilling needed
+- Cleaner component APIs
+- Better encapsulation
 
-## Future Enhancements
+### 3. Timer Array vs Timer IDs
 
-1. **Timer Presets**: Save frequently used timers
-2. **Workout Templates**: Pre-defined workout sequences
-3. **History**: Track completed workouts
-4. **Sharing**: Generate shareable workout links
-5. **Audio Cues**: Sound notifications for timer events
-6. **Export/Import**: Backup and share workout data
+- Timers stored as objects in array, not just IDs
+- No separate timer storage needed
+- Direct access without lookups
+- Simpler data model
+
+### 4. Simplified Timer State
+
+- Single `status` field instead of boolean flags
+- Clear states: idle, running, paused, completed
+- Prevents invalid state combinations
 
 ## Summary
 
-This architecture provides a robust foundation for timer functionality while maintaining flexibility for future features. The Timer page developer can focus on building the UI and timer logic, while the data infrastructure handles persistence, navigation, and state management seamlessly.
+The simplified architecture provides:
+
+- **Clean APIs** - Components get data directly from context
+- **Simple routing** - No session IDs in URLs
+- **Easy state management** - Just an array of timers with an index
+- **Future flexibility** - Easy to add database backend later
+- **Better DX** - Less code, clearer mental model
+
+This approach prioritizes simplicity while maintaining all necessary functionality for a robust timer application.

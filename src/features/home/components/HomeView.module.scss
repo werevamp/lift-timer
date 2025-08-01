@@ -1,0 +1,18 @@
+@use "@styles/globals" as *;
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: rem(20);
+}
+
+.loading {
+  text-align: center;
+
+  p {
+    color: var(--color-text-secondary);
+    font-size: rem(16);
+  }
+}

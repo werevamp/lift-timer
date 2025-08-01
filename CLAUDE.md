@@ -131,11 +131,11 @@ Use absolute paths for global styles:
 
 ```scss
 // ✅ Good: Absolute import
-@use "@styles/globals" as *;
-@use "@styles/globals/variables" as vars;
+@use '@styles/globals' as *;
+@use '@styles/globals/variables' as vars;
 
 // ⚠️ Use relative imports only for local component styles
-@import "./timer-local-styles";
+@import './timer-local-styles';
 ```
 
 #### When to Use Relative Imports

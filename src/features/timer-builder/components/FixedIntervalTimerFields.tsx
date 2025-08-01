@@ -1,31 +1,19 @@
-import { UseFormRegister, FieldErrors } from 'react-hook-form'
-import { DurationInput, FormField } from '@/components/ui/form'
-import { TimerFormData } from '../schemas/timer.schema'
-import styles from './TimerBuilder.module.scss'
+import { DurationInput, NumberInput } from '@/components/ui/form'
 
-interface FixedIntervalTimerFieldsProps {
-  register: UseFormRegister<TimerFormData>
-  errors: FieldErrors<TimerFormData>
-}
-
-export function FixedIntervalTimerFields({ register, errors }: FixedIntervalTimerFieldsProps) {
+export function FixedIntervalTimerFields() {
   return (
     <>
       <DurationInput
         label="Active Time"
-        minuteProps={register('activeTime.minutes')}
-        secondProps={register('activeTime.seconds')}
-        error={errors.activeTime?.message}
+        minutesName="activeTime.minutes"
+        secondsName="activeTime.seconds"
       />
       <DurationInput
         label="Rest Time"
-        minuteProps={register('restTime.minutes')}
-        secondProps={register('restTime.seconds')}
-        error={errors.restTime?.message}
+        minutesName="restTime.minutes"
+        secondsName="restTime.seconds"
       />
-      <FormField label="Rounds" error={errors.rounds?.message}>
-        <input type="number" min="1" max="99" {...register('rounds')} className={styles.input} />
-      </FormField>
+      <NumberInput name="rounds" label="Rounds" min={1} max={99} required />
     </>
   )
 }

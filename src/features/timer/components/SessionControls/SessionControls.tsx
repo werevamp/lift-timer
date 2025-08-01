@@ -1,5 +1,5 @@
 import { useNavigate } from '@tanstack/react-router'
-import { useTimerSession } from '@/contexts/TimerSessionContext'
+import { useTimerSession } from '@/contexts/timer-session'
 import { Button } from '@/components/ui/Button'
 import {
   faChevronLeft,
@@ -114,4 +114,3 @@ export function SessionControls() {
     </div>
   )
 }
-

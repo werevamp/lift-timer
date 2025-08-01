@@ -1,7 +1,7 @@
 import { Timer } from '../types/timer.types'
 import TimerBuilder from './TimerBuilder'
 import styles from './TimerBuilderView.module.scss'
-import { useTimerSession } from '@/contexts/TimerSessionContext'
+import { useTimerSession } from '@/contexts/timer-session'
 import { useNavigate, useSearch } from '@tanstack/react-router'
 import { z } from 'zod'
 
@@ -45,7 +45,9 @@ export default function TimerBuilderView() {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>{timers.length > 0 ? 'Add Timer to Workout' : 'Create Timer'}</h1>
+      <h1 className={styles.title}>
+        {timers.length > 0 ? 'Add Timer to Workout' : 'Create Timer'}
+      </h1>
       <TimerBuilder onSubmit={handleTimerSubmit} />
     </div>
   )

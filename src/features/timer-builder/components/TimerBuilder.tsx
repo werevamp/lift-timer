@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { FormField } from '@/components/ui/form'
+import { FormProvider, SelectInput } from '@/components/ui/form'
 import { Timer } from '../types/timer.types'
 import { timerFormSchema, TimerFormData } from '../schemas/timer.schema'
 import { createTimerFromFormData } from '../utils/timer-creation'
@@ -14,17 +14,12 @@ interface TimerBuilderProps {
 }
 
 export default function TimerBuilder({ onSubmit }: TimerBuilderProps) {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<TimerFormData>({
+  const methods = useForm<TimerFormData>({
     resolver: zodResolver(timerFormSchema),
     defaultValues: DEFAULT_FORM_VALUES,
   })
 
-  const selectedType = watch('type')
+  const selectedType = methods.watch('type')
 
   const handleFormSubmit = (data: TimerFormData) => {
     const timer = createTimerFromFormData(data)
@@ -34,26 +29,16 @@ export default function TimerBuilder({ onSubmit }: TimerBuilderProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)} className={styles.form}>
-      <FormField label="Timer Type" error={errors.type?.message}>
-        <select {...register('type')} className={styles.select}>
-          {TIMER_TYPE_OPTIONS.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-      </FormField>
+    <FormProvider methods={methods} onSubmit={handleFormSubmit} className={styles.form}>
+      <SelectInput name="type" label="Timer Type" options={TIMER_TYPE_OPTIONS} />
 
-      {selectedType === 'standard' && <StandardTimerFields register={register} errors={errors} />}
+      {selectedType === 'standard' && <StandardTimerFields />}
 
-      {selectedType === 'fixed-interval' && (
-        <FixedIntervalTimerFields register={register} errors={errors} />
-      )}
+      {selectedType === 'fixed-interval' && <FixedIntervalTimerFields />}
 
       <button type="submit" className={styles.submitButton}>
         Create Timer
       </button>
-    </form>
+    </FormProvider>
   )
 }

@@ -5,7 +5,7 @@ import styles from './Button.module.scss'
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode
-  variant?: 'primary' | 'secondary' | 'ghost' | 'danger'
+  variant?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'outline'
   size?: 'small' | 'medium' | 'large'
   icon?: IconProp
   iconPosition?: 'left' | 'right'
@@ -36,13 +36,9 @@ export function Button({
 
   return (
     <button className={buttonClasses} disabled={disabled} {...props}>
-      {icon && iconPosition === 'left' && (
-        <FontAwesomeIcon icon={icon} className={styles.icon} />
-      )}
+      {icon && iconPosition === 'left' && <FontAwesomeIcon icon={icon} className={styles.icon} />}
       <span>{children}</span>
-      {icon && iconPosition === 'right' && (
-        <FontAwesomeIcon icon={icon} className={styles.icon} />
-      )}
+      {icon && iconPosition === 'right' && <FontAwesomeIcon icon={icon} className={styles.icon} />}
     </button>
   )
 }
