@@ -3,7 +3,7 @@ import { TimerFormData } from '../schemas/timer.schema'
 export const TIMER_TYPE_OPTIONS = [
   { value: 'standard', label: 'Standard' },
   { value: 'fixed-interval', label: 'Fixed Interval' },
-] as const
+]
 
 export const DEFAULT_FORM_VALUES: TimerFormData = {
   type: 'standard',

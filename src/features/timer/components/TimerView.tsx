@@ -40,7 +40,7 @@ export function TimerView() {
       {/* TODO: Implement actual timer countdown/interval logic here */}
       <div className={styles.timerDisplay}>
         <p>Timer implementation goes here</p>
-        <p>You can also delete the data above, its here just to</p>
+        <p>You can also delete the data above</p>
       </div>
 
       {/* Session Navigation Controls */}

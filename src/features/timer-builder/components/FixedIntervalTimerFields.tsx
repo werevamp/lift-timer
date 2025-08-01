@@ -1,4 +1,5 @@
-import { DurationInput, NumberInput } from '@/components/ui/form'
+import { DurationInput } from '@/components/ui/form'
+import { NumberInput } from '@/components/ui/form/react-hook-form'
 
 export function FixedIntervalTimerFields() {
   return (

@@ -1,45 +1,29 @@
-import { useFormContext } from 'react-hook-form'
 import { FormField } from '../FormField'
 import styles from './SelectInput.module.scss'
 
-interface SelectOption {
+export interface SelectOption {
   value: string | number
   label: string
 }
 
-interface SelectInputProps {
-  name: string
+interface SelectInputProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label?: string
+  error?: string
   options: SelectOption[]
   placeholder?: string
-  required?: boolean
-  disabled?: boolean
-  className?: string
 }
 
 export default function SelectInput({
-  name,
   label,
+  error,
   options,
   placeholder,
-  required,
-  disabled,
   className,
+  ...selectAttributes
 }: SelectInputProps) {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext()
-
-  const error = errors[name]?.message as string | undefined
-
   return (
     <FormField label={label} error={error}>
-      <select
-        disabled={disabled}
-        className={`${styles.selectInput} ${className || ''}`}
-        {...register(name, { required: required && `${label || name} is required` })}
-      >
+      <select {...selectAttributes} className={`${styles.selectInput} ${className || ''}`}>
         {placeholder && (
           <option value="" disabled>
             {placeholder}

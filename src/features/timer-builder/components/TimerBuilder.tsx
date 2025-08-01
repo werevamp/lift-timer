@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { FormProvider, SelectInput } from '@/components/ui/form'
+import { FormProvider } from '@/components/ui/form'
+import { SelectInput } from '@/components/ui/form/react-hook-form'
 import { Timer } from '../types/timer.types'
 import { timerFormSchema, TimerFormData } from '../schemas/timer.schema'
 import { createTimerFromFormData } from '../utils/timer-creation'
@@ -19,6 +20,7 @@ export default function TimerBuilder({ onSubmit }: TimerBuilderProps) {
     defaultValues: DEFAULT_FORM_VALUES,
   })
 
+  console.log('test')
   const selectedType = methods.watch('type')
 
   const handleFormSubmit = (data: TimerFormData) => {
